@@ -11,11 +11,8 @@ module.exports = async function(database, guildID) {
       const guildData = {
         language: cursor.language,
         prefix: cursor.prefix,
-        antiLang: cursor.antiLang,
         antiLangLevel: cursor.antiLangLevel,
-        antiSpam: cursor.antiSpam,
         antiSpamLevel: cursor.antiSpamLevel,
-        antiRaid: cursor.antiRaid,
         antiRaidLevel: cursor.antiRaidLevel,
         activeHours: cursor.activeHours,
         defaultRole: cursor.defaultRole,

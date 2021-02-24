@@ -1,6 +1,6 @@
 /*
  * Language Strings - Latvian Language
- * Translated by: EEHoveckis [19/02/2021]
+ * Translated by: EEHoveckis [24/02/2021]
  */
 
 // Atbildes 8ball komandai.
@@ -24,7 +24,7 @@ module.exports.ballreplies = [
   "Brīnišķīga ideja!",
   "Paprasi citplanētiešiem vai kādam citam.",
   "Tikai, kad mākoņi būs zaļi.",
-  "Lūdzu, bez jautājumies.",
+  "Lūdzu, bez jautājumiem.",
   "Nedari to.",
   "Aizej paprasi Jodai!",
   "Iespējamība - 69%.",
@@ -136,3 +136,17 @@ module.exports.greetings = [
   "Sveicieni no Vjetnamiešu valodā runājošām valstīm - Xin chào",
   "Sveicieni no Zulu valodā runājošām valstīm - Sawubona"
 ];
+
+module.exports.antiLangStrings = {
+  warn : "tika brīdināts par sliktu valodu!",
+  warnX_1 : "Šis ir brīdinājums",
+  warnX_2 : "no 3 ",
+  warnX_3 : "stundu laikā!",
+  warnFinal : ["Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
+               "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
+               "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
+              ],
+  mute: "tika apklusināts!",
+  kick: "tika izmests uz laiku!",
+  ban: "tika izmests uz visiem laikiem!"
+};

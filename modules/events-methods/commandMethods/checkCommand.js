@@ -3,11 +3,16 @@ const errorEmbeds = require("../../embeds/errorEmbeds.js");
 const antiLang = require("../antiLang/antiLang.js");
 const { prefix, maintenance, ownerID } = require("../../files/config.js");
 
-module.exports = function(client, message, data, database) {
+module.exports = function(client, message, database, data) {
     const cooldowns = new Discord.Collection();
 
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).split(/ +/);
+    if(message.content.startsWith(data.prefix)) {
+      var prefixLength = data.prefix.length;
+    } else if(message.content.startsWith(prefix)) {
+      var prefixLength = prefix.length;
+    } else return;
+    if(message.author.bot) return;
+    const args = message.content.slice(prefixLength).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aka && cmd.aka.includes(commandName));
     if(!command) return errorEmbeds.noCommand(client, message, commandName);
@@ -41,7 +46,7 @@ module.exports = function(client, message, data, database) {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try {
-        command.execute(client, message, args);
+        command.execute(client, message, args, database, data);
     } catch (error) {
         return errorEmbeds.unknownError(client, message, commandName, error)
     }

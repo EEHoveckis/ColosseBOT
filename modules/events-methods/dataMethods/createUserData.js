@@ -4,7 +4,7 @@ module.exports = async function(database, userID) {
   try {
     const userCollection = database.collection('users');
 
-    const doc = {
+    const newDoc = {
       user: String(userID),
       language: String("EN"),
       prefix: String("//"),
@@ -15,7 +15,21 @@ module.exports = async function(database, userID) {
       kicks: Int32(0),
       bans: Int32(0)
     };
-    const result = await userCollection.insertOne(doc);
+
+    const userData = {
+      user: userID,
+      language: "EN",
+      prefix: "//",
+      money: 0,
+      xp: 0,
+      warns: 0,
+      mutes: 0,
+      kicks: 0,
+      bans: 0
+    };
+
+    await userCollection.insertOne(newDoc);
+    return userData;
   } catch(e) {
     console.error(e);
   }

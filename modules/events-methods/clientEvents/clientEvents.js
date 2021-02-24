@@ -3,7 +3,7 @@ const welcomeEmbeds = require("../../embeds/welcomeEmbeds");
 const checkCommand = require("../commandMethods/checkCommand.js");
 const getGuildData = require("../dataMethods/getGuildData.js");
 const getUserData = require("../dataMethods/getUserData.js");
-//const countActiveWarns = require("../antiLang/countActiveWarns.js");
+const countActiveWarns = require("../antiLang/countActiveWarns.js");
 
 module.exports = function(client, database) {
   client.once("ready", () => {
@@ -11,11 +11,10 @@ module.exports = function(client, database) {
   });
 
   client.on("guildMemberAdd", (member) => {
-    /* to be readded later
     getGuildData(database, member.guild.id).then(guildData => {
-      if(guildData.antiLang == true && guildData.antiLangLevel == 3) {
+      if(guildData.antiLangLevel == 3) {
         countActiveWarns(database, member.id, member.guild.id).then(activeWarns => {
-          if(activeWarns > 4) member.kick();
+          if(activeWarns == 3) member.kick();
         });
       }
       if(guildData.antiRaid == true) {
@@ -24,8 +23,8 @@ module.exports = function(client, database) {
       if(guildData.welcomeLogs == true) {
         welcomeEmbeds(client, member, guildData);
       }
-    });*/
-    console.log(`${member.user.tag} has joined the guild.`);
+    });
+    console.log(`${member.user.tag} has joined the guild ${message.guild.name}!`);
   });
 
   client.on("guildCreate", (guild) => {
@@ -35,13 +34,13 @@ module.exports = function(client, database) {
   client.on("message", (message) => {
     if(message.channel.type == "text") {
       getGuildData(database, message.guild.id).then(guildData => {
-        if(guildData.antiLang == true) {
-          if(antiLang(client, database, guildData, message) == true) return;
-        }
+        getUserData(database, message)
+        if(antiLang(client, database, guildData, message) == true && guildData.antiLangLevel > 0) return;
         checkCommand(client, message, database, guildData);
       });
     } else {
-      getUserData(database, message.author.id).then(userData => {
+      getUserData(database, message).then(userData => {
+        console.log(userData);
         checkCommand(client, message, database, userData);
       });
     }

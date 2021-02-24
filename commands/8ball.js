@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const { eightBall } = require("../modules/embeds/commandEmbeds.js");
-const { ballreplies } = require("../modules/files/wordbanks/wordbanksEN.js");
 
 module.exports = {
 	name: "8ball",
@@ -8,7 +7,9 @@ module.exports = {
 	usage: "//8ball <Question>",
 	args: true,
 	argsCount: 1,
-	execute(client, message, args) {
+	execute(client, message, args, database, data) {
+		const { ballreplies } = require(`../modules/files/wordbanks/wordbanks${data.language}.js`);
+
 		const question = args.join(" ");
 		const index = Math.floor(Math.random() * (ballreplies.length));
 		const reply = ballreplies[index];

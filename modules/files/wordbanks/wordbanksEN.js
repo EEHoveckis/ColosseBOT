@@ -136,3 +136,17 @@ module.exports.greetings = [
   "Greetings from Vietnamese speaking countries - Xin chào",
   "Greetings from Zulu speaking countries - Sawubona"
 ];
+
+module.exports.antiLangStrings = {
+  warn : "has been warned for bad language!",
+  warnX_1 : "This is warning",
+  warnX_2 : "out of 3 in",
+  warnX_3 : "hours!",
+  warnFinal : ["This is your final warning! Next infraction will mute you!",
+               "This is your final warning! Next infraction will tempban you!",
+               "This is your final warning! Next infraction will ban you permanently!"
+              ],
+  mute: "has been muted for bad language!",
+  kick: "has been temporarily banned for bad language!",
+  ban: "has been permanently banned for bad language!"
+};
