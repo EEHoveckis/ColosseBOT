@@ -1,6 +1,6 @@
 /*
  * Language Strings - Latvian Language
- * Translated by: EEHoveckis [24/02/2021]
+ * Translated by: EEHoveckis [25/02/2021]
  */
 
 // Atbildes 8ball komandai.
@@ -137,16 +137,17 @@ module.exports.greetings = [
   "Sveicieni no Zulu valodā runājošām valstīm - Sawubona"
 ];
 
+// Do not translate the %variable%. These are variables that will change depending on command/event.
+// You can adjust the position of variables if needed, but they must not be missing.
+// There will be example on every string that has variable.
 module.exports.antiLangStrings = {
-  warn : "tika brīdināts par sliktu valodu!",
-  warnX_1 : "Šis ir brīdinājums",
-  warnX_2 : "no 3 ",
-  warnX_3 : "stundu laikā!",
+  warn : "%author% tika brīdināts par sliktu valodu!",
+  warnX : "Šis ir brīdinājums %active% no 3, %hours% stundu laikā!",
   warnFinal : ["Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
                "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
                "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
               ],
-  mute: "tika apklusināts!",
-  kick: "tika izmests uz laiku!",
-  ban: "tika izmests uz visiem laikiem!"
+  mute: "%author% tika apklusināts!",
+  kick: "%author% tika izmests uz laiku!",
+  ban: "%author% tika izmests uz visiem laikiem!"
 };

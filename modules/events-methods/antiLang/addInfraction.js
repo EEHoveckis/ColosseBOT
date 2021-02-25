@@ -5,7 +5,13 @@ module.exports.addWarn = async function(database, message) {
     const antiLangCollection = database.collection('antiLang');
     const doc = { timestamp: Long.fromNumber(Date.now()), user: String(message.author.id), guild: String(message.guild.id) };
     await antiLangCollection.insertOne(doc);
+  } catch(e) {
+    console.error(e);
+  }
+};
 
+module.exports.incrementWarns = async function(database, message) {
+  try {
     const userCollection = database.collection('users');
     await userCollection.updateOne({user: message.author.id}, {$inc: { warns: 1 }});
   } catch(e) {
@@ -13,7 +19,7 @@ module.exports.addWarn = async function(database, message) {
   }
 };
 
-module.exports.addMute = async function(database, message) {
+module.exports.incrementMutes = async function(database, message) {
   try {
     const userCollection = database.collection('users');
     await userCollection.updateOne({user: message.author.id}, {$inc: { mutes: 1 }});
@@ -22,7 +28,7 @@ module.exports.addMute = async function(database, message) {
   }
 };
 
-module.exports.addKick = async function(database, message) {
+module.exports.incrementKicks = async function(database, message) {
   try {
     const userCollection = database.collection('users');
     await userCollection.updateOne({user: message.author.id}, {$inc: { kicks: 1 }});
@@ -31,7 +37,7 @@ module.exports.addKick = async function(database, message) {
   }
 };
 
-module.exports.addBan = async function(database, message) {
+module.exports.incrementBans = async function(database, message) {
   try {
     const userCollection = database.collection('users');
     await userCollection.updateOne({user: message.author.id}, {$inc: { bans: 1 }});

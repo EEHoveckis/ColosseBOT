@@ -24,7 +24,7 @@ module.exports = function(client, database) {
         welcomeEmbeds(client, member, guildData);
       }
     });
-    console.log(`${member.user.tag} has joined the guild ${message.guild.name}!`);
+    console.log(`${member.user.tag} has joined the guild ${member.guild.name}!`);
   });
 
   client.on("guildCreate", (guild) => {
@@ -34,7 +34,7 @@ module.exports = function(client, database) {
   client.on("message", (message) => {
     if(message.channel.type == "text") {
       getGuildData(database, message.guild.id).then(guildData => {
-        getUserData(database, message)
+        getUserData(database, message);
         if(antiLang(client, database, guildData, message) == true && guildData.antiLangLevel > 0) return;
         checkCommand(client, message, database, guildData);
       });

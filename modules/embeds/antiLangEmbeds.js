@@ -1,78 +1,81 @@
 const Discord = require("discord.js");
 const { colorYellow, colorOrange, colorRed, colorBlack, botWebsite } = require("../files/config.js");
 
-module.exports.warnUser = function(client, message, guildData) {
+module.exports = function(client, message, guildData, choice, activeWarns) {
   const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  const warnUserEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorYellow)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.warn}`);
-
-  message.channel.send(warnUserEmbed);
   message.delete();
-};
 
-module.exports.warnUserNF = function(client, guildData, message, activeWarns) {
-  const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  const warnUserNFEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorYellow)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.warn}`)
-  .setFooter(`${antiLangStrings.warnX_1} ${activeWarns} ${antiLangStrings.warnX_2} ${guildData.activeHours} ${antiLangStrings.warnX_3}`);
+  switch (choice) {
+    case "warn":
+      var tString = antiLangStrings.warn.replace("%author%", `**${message.author.tag}**`);
 
-  message.channel.send(warnUserNFEmbed);
-  message.delete();
-};
+      const warnUserEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorYellow)
+      .setDescription(tString);
 
-module.exports.warnUserF = function(client, guildData, message) {
-  const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  if(guildData.antiLangLevel == 2) {
-    var i = 0;
-  } else if(guildData.antiLangLevel == 3) {
-    var i = 1;
-  } else {
-    var i = 2;
+      message.channel.send(warnUserEmbed);
+      break;
+    case "warnNF":
+      var tString = antiLangStrings.warn.replace("%author%", `**${message.author.tag}**`);
+      var tString2 = antiLangStrings.warnX.replace("%active%", activeWarns);
+      tString2 = tString2.replace("%hours%", guildData.activeHours);
+
+      const warnUserNFEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorYellow)
+      .setDescription(tString)
+      .setFooter(tString2);
+
+      message.channel.send(warnUserNFEmbed);
+      break;
+    case "warnF":
+      var tString = antiLangStrings.warn.replace("%author%", `**${message.author.tag}**`);
+
+      if(guildData.antiLangLevel == 2) {
+        var i = 0;
+      } else if(guildData.antiLangLevel == 3) {
+        var i = 1;
+      } else {
+        var i = 2;
+      }
+
+      const warnUserFEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorYellow)
+      .setDescription(tString)
+      .setFooter(antiLangStrings.warnFinal[i]);
+
+      message.channel.send(warnUserFEmbed);
+      break;
+    case "mute":
+      var tString = antiLangStrings.mute.replace("%author%", `**${message.author.tag}**`);
+
+      const muteUserEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorOrange)
+      .setDescription(tString);
+
+      message.channel.send(muteUserEmbed);
+      break;
+    case "kick":
+      var tString = antiLangStrings.kick.replace("%author%", `**${message.author.tag}**`);
+
+      const kickUserEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorRed)
+      .setDescription(tString);
+
+      message.channel.send(kickUserEmbed);
+      break;
+    case "ban":
+      var tString = antiLangStrings.ban.replace("%author%", `**${message.author.tag}**`);
+
+      const banUserEmbed = new Discord.MessageEmbed()
+      .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
+      .setColor(colorBlack)
+      .setDescription(tString);
+
+      message.channel.send(banUserEmbed);
   }
-
-  const warnUserFEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorYellow)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.warn}`)
-  .setFooter(antiLangStrings.warnFinal[i]);
-
-  message.channel.send(warnUserFEmbed);
-  message.delete();
-};
-
-module.exports.muteUser = function(client, message, guildData) {
-  const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  const muteUserEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorOrange)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.mute}`);
-
-  message.channel.send(muteUserEmbed);
-  message.delete();
-};
-
-module.exports.kickUser = function(client, message, guildData) {
-  const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  const kickUserEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorRed)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.kick}`);
-
-  message.channel.send(kickUserEmbed);
-  message.delete();
-};
-
-module.exports.banUser = function(client, message, guildData) {
-  const { antiLangStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-  const banUserEmbed = new Discord.MessageEmbed()
-  .setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
-  .setColor(colorBlack)
-  .setDescription(`**${message.author.tag}** ${antiLangStrings.ban}`);
-
-  message.channel.send(banUserEmbed);
-  message.delete();
-};
+}

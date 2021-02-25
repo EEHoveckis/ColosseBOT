@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 const deleteExpiredWarns = require("./deleteExpiredWarns.js");
 const countActiveWarns = require("./countActiveWarns.js");
-const { addWarn, addMute, addKick, addBan } = require("./addInfraction.js");
-const { warnUser, warnUserF, warnUserNF, muteUser, kickUser, banUser } = require("../../embeds/antiLangEmbeds.js");
+const { addWarn, incrementWarns, incrementMutes, incrementKicks, incrementBans } = require("./addInfraction.js");
+const antiLangEmbeds = require("../../embeds/antiLangEmbeds.js");
 const badWords = require("../../files/wordbanks/badWords.js");
 
 module.exports = function(client, database, guildData, message) {
@@ -20,45 +20,51 @@ module.exports = function(client, database, guildData, message) {
         case 0:   // Do Nothing. AntiLang is disabled in guild.
           break;
         case 1:   // Just warns user.
-          addWarn(database, message);
-          warnUser(client, message, guildData);
+          incrementWarns(database, message);
+          antiLangEmbeds(client, message, guildData, "warn");
           break;
         case 2:   // Mutes user for X hours after 3 infractions in X hours.
             if(activeWarns < 2) {
               addWarn(database, message);
-              warnUserNF(client, guildData, message, activeWarns + 1);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnNF", activeWarns + 1);
             } else if(activeWarns == 2) {
               addWarn(database, message);
-              warnUserF(client, guildData, message);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnF");
             } else {
               message.member.roles.add(guildData.muteRole);
-              addMute(database, message);
-              muteUser(client, message, guildData);
+              incrementMutes(database, message);
+              antiLangEmbeds(client, message, guildData, "mute");
             }
           break;
         case 3:   // Tempbans user for X hours after 3 infractions in X hours.
             if(activeWarns < 2) {
               addWarn(database, message);
-              warnUserNF(client, guildData, message, activeWarns + 1);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnNF", activeWarns + 1);
             } else if(activeWarns == 2) {
               addWarn(database, message);
-              warnUserF(client, guildData, message);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnF");
             } else {
-              addKick(database, message);
-              kickUser(client, message, guildData);
+              incrementKicks(database, message);
+              antiLangEmbeds(client, message, guildData, "kick");
               message.member.kick().catch(console.error);
             }
           break;
         case 4:   // Permanently bans user after 3 infractions in X hours.
             if(activeWarns < 2) {
               addWarn(database, message);
-              warnUserNF(client, guildData, message, activeWarns + 1);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnNF", activeWarns + 1);
             } else if(activeWarns == 2) {
               addWarn(database, message);
-              warnUserF(client, guildData, message);
+              incrementWarns(database, message);
+              antiLangEmbeds(client, message, guildData, "warnF");
             } else {
-              addBan(database, message);
-              banUser(client, message, guildData);
+              incrementBans(database, message);
+              antiLangEmbeds(client, message, guildData, "ban");
               message.member.ban().catch(console.error);
             }
           break;

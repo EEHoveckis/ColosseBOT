@@ -137,16 +137,17 @@ module.exports.greetings = [
   "Greetings from Zulu speaking countries - Sawubona"
 ];
 
+// Do not translate the %variable%. These are variables that will change depending on command/event.
+// You can adjust the position of variables if needed, but they must not be missing.
+// There will be example on every string that has variable.
 module.exports.antiLangStrings = {
-  warn : "has been warned for bad language!",
-  warnX_1 : "This is warning",
-  warnX_2 : "out of 3 in",
-  warnX_3 : "hours!",
+  warn : "%author% has been warned for bad language!", // Example: User#1234 was warned for bad language!
+  warnX : "This is warning %active% out of 3 in %hours% hours!", // Example: This is warning 2 out of 3 in 24 hours!
   warnFinal : ["This is your final warning! Next infraction will mute you!",
                "This is your final warning! Next infraction will tempban you!",
                "This is your final warning! Next infraction will ban you permanently!"
               ],
-  mute: "has been muted for bad language!",
-  kick: "has been temporarily banned for bad language!",
-  ban: "has been permanently banned for bad language!"
+  mute: "%author% has been muted for bad language!",
+  kick: "%author% has been temporarily banned for bad language!",
+  ban: "%author% has been permanently banned for bad language!"
 };
