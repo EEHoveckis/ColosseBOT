@@ -1,6 +1,6 @@
 /*
  * Language Strings - Latvian Language
- * Translated by: EEHoveckis [25/02/2021]
+ * Translated by: EEHoveckis [28/02/2021]
  */
 
 // Atbildes 8ball komandai.
@@ -137,17 +137,51 @@ module.exports.greetings = [
   "Sveicieni no Zulu valodā runājošām valstīm - Sawubona"
 ];
 
-// Do not translate the %variable%. These are variables that will change depending on command/event.
-// You can adjust the position of variables if needed, but they must not be missing.
-// There will be example on every string that has variable.
 module.exports.antiLangStrings = {
   warn : "%author% tika brīdināts par sliktu valodu!",
   warnX : "Šis ir brīdinājums %active% no 3, %hours% stundu laikā!",
-  warnFinal : ["Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
-               "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
-               "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
-              ],
+  warnFinal : [
+    "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
+    "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
+    "Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"],
   mute: "%author% tika apklusināts!",
   kick: "%author% tika izmests uz laiku!",
   ban: "%author% tika izmests uz visiem laikiem!"
+};
+
+module.exports.variousStrings = {
+  question: "Jautājums",
+  answer: "Atbilde",
+  providedBy: "Atbildi nodrošina %provider%",
+  guild: "Ģilde",
+  channel: "Kanāls",
+  author: "Autors",
+};
+
+module.exports.errorStrings = {
+  error: "Kļūda",
+  errorUnknown: "Komandas izpildes laikā, notika kļūda.\nIzstrādātājs ir informēts.\nEs atvainojos par sagādātajām neērtībām.",
+  errorDev: "Komandas izpildes laikā, notika kļūda.",
+  noCommand: "Neeksistējoša komanda",
+  noCommandText: "Komanda ar nosaukumu %commandName% nepastāv!\nApskatiet __**//help**__, papildus informācijai.",
+  maintenance: "Uzturēšanas Režīms",
+  maintenanceText: "Bots šobrīd atrodas uzturēšanas režīmā!\nKomandas/pieprasījumi šobrīd netiek pieņemti!\nLūdzu mēģiniet vēlāk vēlreiz.",
+  disabled: "Atspējota Komanda",
+  disabledText: "Es atvainojos, bet šī komanda nav šobrīd pieejama.",
+  botOwner: "Izstrādātāja Komanda",
+  botOwnerText: "Es atvainojos, bet šī komanda ir paredzēta tikai izstrādātājam.",
+  guildOnly: "Komanda Tikai Giļdēm",
+  guildOnlyText: "Es atvainojos, bet es nevaru izpildīt šo komandu privātajā sarakstē.",
+  dmOnly: "Privātās Sarakstes Komanda",
+  dmOnlyText: "Es atvainojos, bet es nevaru izpildīt šo komandu ģildē.",
+  guildOwnerOnly: "Ģildes Īpašnieka Komanda",
+  guildOwnerOnlyText: "Es atvainojos, bet šī komanda ir paredzēta tikai ģildes īpašniekam.",
+  noPerms: "Nepietiekamas Atļaujas",
+  noPermsText: "Es atvainojos, bet jums nav nepieciešamās atļaujas, %author%!\nApskatiet __**//perms**__ papildus informācijai.",
+  noArgsProvided: "Nav Argumentu",
+  noArgsProvidedText: "Es atvainojos, bet jūs nepievienojāt nevienu argumentu!\nPareiza komandas lietošana būtu:\n__**%usage%**__",
+  notEnoughArgs: "Nepietiekams Argumentu Skaits",
+  notEnoughArgsText: "Es atvainojos, bet jūs pievienojāt nepietiekamu argumentu skaitu!\nPareiza komandas lietošana būtu:\n__**%usage%**__",
+  cooldown: "Komanda Atjaunojas",
+  cooldownText: "%author%, lūdzu uzgaidiet %timeLeft% sekundes līdz atkal lietot šo komandu.\nŠī ziņa izdzēsīsies, kad gaidīšanas laiks beigsies."
 };

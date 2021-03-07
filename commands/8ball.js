@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { eightBall } = require("../modules/embeds/commandEmbeds.js");
+const commandEmbeds = require("../modules/embeds/commandEmbeds.js");
 
 module.exports = {
 	name: "8ball",
@@ -13,6 +13,6 @@ module.exports = {
 		const question = args.join(" ");
 		const index = Math.floor(Math.random() * (ballreplies.length));
 		const reply = ballreplies[index];
-		return eightBall(client, message, question, reply);
+		return commandEmbeds(client, message, data, "8ball", {question: question, reply: reply});
 	},
 };

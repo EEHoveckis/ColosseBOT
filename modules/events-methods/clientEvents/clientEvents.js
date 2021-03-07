@@ -1,9 +1,9 @@
 const antiLang = require("../antiLang/antiLang.js");
-const welcomeEmbeds = require("../../embeds/welcomeEmbeds");
+const antiRaid = require("../antiRaid/antiRaid.js");
+const welcomeEmbeds = require("../../embeds/welcomeEmbeds.js");
 const checkCommand = require("../commandMethods/checkCommand.js");
 const getGuildData = require("../dataMethods/getGuildData.js");
 const getUserData = require("../dataMethods/getUserData.js");
-const countActiveWarns = require("../antiLang/countActiveWarns.js");
 
 module.exports = function(client, database) {
   client.once("ready", () => {
@@ -12,26 +12,20 @@ module.exports = function(client, database) {
 
   client.on("guildMemberAdd", (member) => {
     getGuildData(database, member.guild.id).then(guildData => {
-      if(guildData.antiLangLevel == 3) {
-        countActiveWarns(database, member.id, member.guild.id).then(activeWarns => {
-          if(activeWarns == 3) member.kick();
-        });
-      }
-      if(guildData.antiRaid == true) {
-        //antiRaid(client, member, database);
-      }
-      if(guildData.welcomeLogs == true) {
+      antiRaid(guildData, member);
+      /*if(guildData.welcomeLogs == true) {
         welcomeEmbeds(client, member, guildData);
-      }
+      }*/
     });
-    console.log(`${member.user.tag} has joined the guild ${member.guild.name}!`);
   });
 
   client.on("guildCreate", (guild) => {
     getGuildData(database, guild.id);
+    // To be filled later
   });
 
   client.on("message", (message) => {
+    if(message.author.bot) return;
     if(message.channel.type == "text") {
       getGuildData(database, message.guild.id).then(guildData => {
         getUserData(database, message);
@@ -40,7 +34,6 @@ module.exports = function(client, database) {
       });
     } else {
       getUserData(database, message).then(userData => {
-        console.log(userData);
         checkCommand(client, message, database, userData);
       });
     }

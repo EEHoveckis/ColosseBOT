@@ -13,12 +13,12 @@ Current Status - Not Ready For Release
 - [ ] All Embed Responses
 - [ ] Music System
 - [ ] Custom Commands
-- [x] AntiLang Module (Still needs setup command & Some fixes)
+- [x] AntiLang Module (Still needs setup command)
 - [ ] AntiSpam Module
 - [ ] AntiRaid Module
 - [ ] Economy System
 - [ ] Amazing Dashboard
-- [x] Guild & User String Translations (Partial implementation. Not working fully yet.)
+- [x] Guild & User String Translations (Still needs setup command)
 
 ## 📄 Features
 - **AMAZING COMMANDS** Loads of commands, that usually require other bots!

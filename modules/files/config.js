@@ -1,8 +1,9 @@
 module.exports = {
-  // Basic Settings
-  prefix : "//",  // Default Prefix for commands.
-  maintenance : false,  // Maintenance mode: No requests are accepted from anyone but owner.
-  ownerID : "Your Discord ID Goes Here",  // Your Discord ID. Needed for ownerOnly && maintenance commands.
+  // Basic settings
+  prefix : "//",  // Default prefix for commands.
+  language: "EN", // Currently available languages: EN - English, LV - Latvian.
+  maintenance : false,  // Maintenance mode: No requests are accepted from anyone, but owner.
+  ownerID : "Your Discord ID Goes Here",  // Your Discord ID. Needed for ownerOnly, disabled & maintenance commands.
   botWebsite : "https://YourSite.com",  // Website link that will be inserted in every embed.
 
   // Authentication Tokens.
@@ -11,6 +12,11 @@ module.exports = {
   unsplash_access : "Your Unsplash Access Key Goes Here.",  // Your Unsplash Access Token. Needed for image command.
   unsplash_secret : "Your Unsplash Secret Key Goes Here.",  // Your Unsplash Secret Token. Needed for image command.
   mongoURI : "Your MongoDB URI goes here.", // Your MongoDB URI. Needed for databases.
+
+  // IDs for guild and channels where reports will be sent.
+  devGuild: "Your Guild ID", // ID of guild where errors will be sent.
+  primaryLogs: "Your Channel ID", // ID of channel where errors will be sent.
+  secondaryLogs: "Your Channel ID", // ID of channel where secondary reports will be sent.
 
   // Images for api embeds. Should not be changed.
   adviceSlipThumbnail : "https://i.imgur.com/sNZ11bF.png",

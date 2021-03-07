@@ -2,7 +2,6 @@ const createUserData = require("./createUserData.js");
 
 module.exports = async function(database, message) {
   try {
-    if(message.author.bot) return;
     const userCollection = database.collection('users');
     const cursor = await userCollection.findOne({ user: message.author.id });
     if(cursor === null) {

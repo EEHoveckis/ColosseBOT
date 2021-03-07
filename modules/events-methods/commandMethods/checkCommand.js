@@ -1,53 +1,38 @@
 const Discord = require("discord.js");
+const cooldowns = require("./cooldowns.js");
 const errorEmbeds = require("../../embeds/errorEmbeds.js");
-const antiLang = require("../antiLang/antiLang.js");
 const { prefix, maintenance, ownerID } = require("../../files/config.js");
 
-module.exports = function(client, message, database, data) {
-    const cooldowns = new Discord.Collection();
-
+module.exports = async function(client, message, database, data) {
     if(message.content.startsWith(data.prefix)) {
       var prefixLength = data.prefix.length;
     } else if(message.content.startsWith(prefix)) {
       var prefixLength = prefix.length;
     } else return;
-    if(message.author.bot) return;
     const args = message.content.slice(prefixLength).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aka && cmd.aka.includes(commandName));
-    if(!command) return errorEmbeds.noCommand(client, message, commandName);
+    if(!command) return errorEmbeds(client, message, data, "noCommand", {commandName: commandName});
 
-    if(maintenance && message.author.id != ownerID) return errorEmbeds.maintenanceActive(client, message);
-    if(command.disabled && message.author.id != ownerID) return errorEmbeds.disabledCommand(client, message);
-    if(command.ownerOnly && message.author.id != ownerID) return errorEmbeds.ownerOnly(client, message);
-    if(command.guildOnly && message.channel.type !== "text") return errorEmbeds.guildOnly(client, message);
-    if(command.directOnly && message.channel.type !== "dm") return errorEmbeds.directOnly(client, message);
-    if(command.guildOwnerOnly && message.author.id != message.guild.ownerID) return errorEmbeds.guildOwnerOnly(client, message);
-    if(command.permsCheck && !message.member.hasPermission(command.neededPerms, { checkAdmin: true, checkOwner: true })) return errorEmbeds.noPerms(client, message, commandName);
+    if(maintenance && message.author.id != ownerID) return errorEmbeds(client, message, data, "maintenanceActive");
+    if(command.disabled && message.author.id != ownerID) return errorEmbeds(client, message, data, "disabledCommand");
+    if(command.ownerOnly && message.author.id != ownerID) return errorEmbeds(client, message, data, "ownerOnly");
+    if(command.guildOnly && message.channel.type !== "text") return errorEmbeds(client, message, data, "guildOnly");
+    if(command.directOnly && message.channel.type !== "dm") return errorEmbeds(client, message, data, "directOnly");
+    if(command.guildOwnerOnly && message.author.id != message.guild.ownerID) return errorEmbeds(client, message, data, "guildOwnerOnly");
+    if(command.permsCheck && !message.member.hasPermission(command.neededPerms, { checkAdmin: true, checkOwner: true })) return errorEmbeds(client, message, data, "noPerms");
     if(command.args) {
-        if(!args.length && command.argsCount >= 1) return errorEmbeds.noArgsProvided(client, message, command);
-        if(args.length < command.argsCount) return errorEmbeds.notEnoughArgs(client, message, command);
+        if(!args.length && command.argsCount >= 1) return errorEmbeds(client, message, data, "noArgsProvided", {usage: command.usage});
+        if(args.length < command.argsCount) return errorEmbeds(client, message, data, "notEnoughArgs", {usage: command.usage});
     }
-
-    if(!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
-    const now = Date.now();
-    const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown) * 1000;
-
-    if(timestamps.has(message.author.id)) {
-        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-        if(now < expirationTime) {
-            const timeLeft = (expirationTime - now) / 1000;
-            return errorEmbeds.cooldownActive(client, message, timeLeft)
-        }
+    if(command.cooldown) {
+      const cooldownActive = await cooldowns(client, message, command, database, data);
+      if(cooldownActive == true) return;
     }
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try {
-        command.execute(client, message, args, database, data);
+      command.execute(client, message, args, database, data);
     } catch (error) {
-        return errorEmbeds.unknownError(client, message, commandName, error)
+        errorEmbeds(client, message, data, "unknownError", {commandName: commandName, error: error});
     }
-}
+};

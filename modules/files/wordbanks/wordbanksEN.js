@@ -97,7 +97,7 @@ module.exports.ballreplies = [
   "It is certain."
 ];
 
-// Greetings (Translate only first part).
+// Greetings.
 module.exports.greetings = [
   "Greetings from Arabic speaking countries - مرحبا",
   "Greetings from Bengali speaking countries - নমস্কার",
@@ -137,17 +137,51 @@ module.exports.greetings = [
   "Greetings from Zulu speaking countries - Sawubona"
 ];
 
-// Do not translate the %variable%. These are variables that will change depending on command/event.
-// You can adjust the position of variables if needed, but they must not be missing.
-// There will be example on every string that has variable.
 module.exports.antiLangStrings = {
-  warn : "%author% has been warned for bad language!", // Example: User#1234 was warned for bad language!
-  warnX : "This is warning %active% out of 3 in %hours% hours!", // Example: This is warning 2 out of 3 in 24 hours!
-  warnFinal : ["This is your final warning! Next infraction will mute you!",
-               "This is your final warning! Next infraction will tempban you!",
-               "This is your final warning! Next infraction will ban you permanently!"
-              ],
+  warn : "%author% has been warned for bad language!",
+  warnX : "This is warning %active% out of 3 in %hours% hours!",
+  warnFinal : [
+    "This is your final warning! Next infraction will mute you!",
+    "This is your final warning! Next infraction will tempban you!",
+    "This is your final warning! Next infraction will ban you permanently!"],
   mute: "%author% has been muted for bad language!",
   kick: "%author% has been temporarily banned for bad language!",
   ban: "%author% has been permanently banned for bad language!"
+};
+
+module.exports.variousStrings = {
+  question: "Question",
+  answer: "Answer",
+  providedBy: "Provided by %provider%",
+  guild: "Guild",
+  channel: "Channel",
+  author: "Author",
+};
+
+module.exports.errorStrings = {
+  error: "Error",
+  errorUnknown: "An unknown error occured while running command.\nDeveloper has been informed.\nI'm sorry for the inconvenience.",
+  errorDev: "An error occured while running command.",
+  noCommand: "No Command",
+  noCommandText: "There is no command with name %commandName%!\nCheck __**//help**__ for more information.",
+  maintenance: "Maintenance",
+  maintenanceText: "Bot is currently down for maintenance!\nNo requests/commands are accepted right now!\nPlease try again later.",
+  disabled: "Disabled Command",
+  disabledText: "I'm sorry, but this command is currently disabled!",
+  botOwner: "Owner Command",
+  botOwnerText: "I'm sorry, but this command is intended only for bot owner.",
+  guildOnly: "Guild Only Command",
+  guildOnlyText: "I'm sorry, but I can't execute this command inside DMs!",
+  dmOnly: "DM Only Command",
+  dmOnlyText: "I'm sorry, but I can't execute this command inside guilds!",
+  guildOwnerOnly: "Guild Owner Command",
+  guildOwnerOnlyText: "I'm sorry, but this command is intended only for guild owner.",
+  noPerms: "Insufficent Permissions",
+  noPermsText: "I'm sorry, but you don't have required permissions, %author%!\nPlease check __**//perms**__ for more information.",
+  noArgsProvided: "No Arguments",
+  noArgsProvidedText: "I'm sorry, but you didn't provide any arguments!\nThe proper usage would be:\n__**%usage%**__",
+  notEnoughArgs: "Not Enough Arguments",
+  notEnoughArgsText: "I'm sorry, but you didn't provide enough arguments!\nThe proper usage would be:\n__**%usage%**__",
+  cooldown: "Command On Cooldown",
+  cooldownText: "%author%, please wait %timeLeft% seconds before reusing this command.\nThis message will disappear when the cooldown is over."
 };
