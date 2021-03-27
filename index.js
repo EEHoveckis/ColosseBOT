@@ -7,7 +7,7 @@ const { discord_token } = require("./modules/files/config.js");
 const client = new Discord.Client();
 loadCommands(client);
 connectMongo().then(database => {
-  clientEvents(client, database);
+	clientEvents(client, database);
 });
 
 client.login(discord_token);

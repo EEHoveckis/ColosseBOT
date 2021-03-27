@@ -2,9 +2,9 @@ const { Long } = require("bson");
 
 module.exports.addWarn = async function(database, message) {
 	try {
-		const antiLangCollection = database.collection('antiLang');
+		const antiSpamCollection = database.collection('antiSpam');
 		const doc = { timestamp: Long.fromNumber(Date.now()), user: String(message.author.id), guild: String(message.guild.id) };
-		await antiLangCollection.insertOne(doc);
+		await antiSpamCollection.insertOne(doc);
 	} catch (e) {
 		console.error(e);
 	}

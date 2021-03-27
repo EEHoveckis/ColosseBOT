@@ -1,30 +1,33 @@
-const { Int32 } = require("bson");
+const { Int32, Double } = require("bson");
 
 module.exports = async function(database, guildID) {
-  try {
-    const guildCollection = database.collection('guilds');
+	try {
+		const guildCollection = database.collection('guilds');
 
-    const doc = {
-      guild: String(guildID),
-      language: String("EN"),
-      prefix: String("//"),
-      antiLangLevel: Int32(1),
-      antiSpamLevel: Int32(1),
-      antiRaidLevel: Int32(1),
-      activeHours: Int32(6),
-      defaultRole: String("None"),
-      muteRole: String("None"),
-      moderationLogs: Boolean(false),
-      moderationLogsChannel: String("None"),
-      botCommands: Boolean(false),
-      botCommandsChannel: String("None"),
-      welcomeLogs: Boolean(false),
-      welcomeLogsChannel: String("None"),
-      welcomeType: String("EMBED"),
-      stats: Boolean(false)
-    };
-    const result = await guildCollection.insertOne(doc);
-  } catch(e) {
-    console.error(e);
-  }
+		const doc = {
+			guild: String(guildID),
+			language: String("EN"),
+			prefix: String("//"),
+			antiLangLevel: Int32(1),
+			antiSpamLevel: Int32(1),
+			antiRaidLevel: Int32(1),
+			activeHours: Double(6),
+			defaultRole: String("None"),
+			muteRole: String("None"),
+			modLogs: Int32(0),
+			modLogsChannel: String("None"),
+			commandsOnly: Boolean(false),
+			commandsOnlyChannels: ["None"],
+			imagesOnly: Boolean(false),
+			imagesOnlyChannels: ["None"],
+			welcomeLogs: Int32(1),
+			welcomeLogsChannel: String("None"),
+			stats: Boolean(false),
+			xpRate: Double(1),
+			moneyRate: Double(1),
+		};
+		const result = await guildCollection.insertOne(doc);
+	} catch (e) {
+		console.error(e);
+	}
 };

@@ -14,8 +14,8 @@ Current Status - Not Ready For Release
 - [ ] Music System
 - [ ] Custom Commands
 - [x] AntiLang Module (Still needs setup command)
-- [ ] AntiSpam Module
-- [ ] AntiRaid Module
+- [x] AntiSpam Module (Still needs setup command & Invite/Mention Catcher)
+- [x] AntiRaid Module (Still needs setup command & Lockdown Command)
 - [ ] Economy System
 - [ ] Amazing Dashboard
 - [x] Guild & User String Translations (Still needs setup command)

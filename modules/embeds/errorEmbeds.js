@@ -5,7 +5,7 @@ const devStrings = require(`../files/wordbanks/wordbanks${language}.js`);
 module.exports = function(client, message, data, choice, otherArgs) {
   const { errorStrings } = require(`../files/wordbanks/wordbanks${data.language}.js`);
   switch (choice) {
-    case "unknownError": // Unknown Error [DONE]
+    case "unknownError": // Unknown Error
       console.log(otherArgs.error);
 
       const unknownErrorEmbed = new Discord.MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
         client.guilds.resolve(devGuild).channels.resolve(primaryLogs).send(unknownErrorDmEmbed);
       }
       break;
-    case "noCommand": // No Command Found [DONE]
+    case "noCommand": // No Command Found
       const noCommandEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.noCommand} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -44,7 +44,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
         message.channel.send(noCommandEmbed);
       break;
-    case "maintenanceActive": // Maintenance Active [DONE]
+    case "maintenanceActive": // Maintenance Active
       const maintenanceActiveEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.maintenance} ⋘`, "", botWebsite)
       .setColor(colorYellow)
@@ -52,7 +52,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(maintenanceActiveEmbed);
       break;
-    case "disabledCommand": // Command Disabled [DONE]
+    case "disabledCommand": // Command Disabled
       const disabledCommandEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.disabled} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -60,7 +60,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(disabledCommandEmbed);
       break;
-    case "ownerOnly": // Owner Only Command [DONE]
+    case "ownerOnly": // Owner Only Command
       const ownerOnlyEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.botOwner} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -68,7 +68,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(ownerOnlyEmbed);
       break;
-    case "guildOnly": // Guild Only Command [DONE]
+    case "guildOnly": // Guild Only Command
       const guildOnlyEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.guildOnly} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -76,7 +76,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(guildOnlyEmbed);
       break;
-    case "directOnly": // DM's Only Command [DONE]
+    case "directOnly": // DM's Only Command
       const directOnlyEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.dmOnly} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -84,7 +84,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(directOnlyEmbed);
       break;
-    case "guildOwnerOnly": // Guild Owner Command [DONE]
+    case "guildOwnerOnly": // Guild Owner Command
       const guildOwnerOnlyEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ColosseBOT || ${errorStrings.guildOwnerOnly} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -92,7 +92,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(guildOwnerOnlyEmbed);
       break;
-    case "noPerms": // No Required Permissions [DONE]
+    case "noPerms": // No Required Permissions
       const noPermsEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.noPerms} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -100,7 +100,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(noPermsEmbed);
       break;
-    case "noArgsProvided": // No Arguments Provided [DONE]
+    case "noArgsProvided": // No Arguments Provided
       const noArgsProvidedEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.noArgsProvided} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -108,7 +108,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(noArgsProvidedEmbed);
       break;
-    case "notEnoughArgs": // Not Enough Arguments Provided [DONE]
+    case "notEnoughArgs": // Not Enough Arguments Provided
       const notEnoughArgsEmbed = new Discord.MessageEmbed()
       .setAuthor(`⋙ ${client.user.username} || ${errorStrings.notEnoughArgs} ⋘`, "", botWebsite)
       .setColor(colorDarkRed)
@@ -116,7 +116,7 @@ module.exports = function(client, message, data, choice, otherArgs) {
 
       message.channel.send(notEnoughArgsEmbed);
       break;
-    case "cooldownActive": // Command Is On Cooldown [DONE]
+    case "cooldownActive": // Command Is On Cooldown
       var cooldownText = errorStrings.cooldownText.replace("%author%", message.author.username);
       cooldownText = cooldownText.replace("%timeLeft%", otherArgs.timeLeft.toFixed(1));
 

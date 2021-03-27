@@ -13,6 +13,6 @@ module.exports = {
 		const question = args.join(" ");
 		const index = Math.floor(Math.random() * (ballreplies.length));
 		const reply = ballreplies[index];
-		return commandEmbeds(client, message, data, "8ball", {question: question, reply: reply});
+		return commandEmbeds(client, message, data, "8ball", { question: question, reply: reply });
 	},
 };

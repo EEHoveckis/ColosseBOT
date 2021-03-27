@@ -1,25 +1,26 @@
 const antiRaidEmbeds = require("../../embeds/antiRaidEmbeds.js");
+const countAntiLangWarns = require("../antiLang/countActiveWarns.js");
+const countAntiSpamWarns = require("../antiSpam/countActiveWarns.js");
 
-module.exports = function(client, guildData) {
-  switch (guildData.antiRaidLevel) {
-    case 1:
-      // Send Captcha and not let post anything while captcha not completed.
-      break;
-    case 2:
-      // Send Captcha and kick user if captcha not complete in 10 minutes?.
-      break;
-    case 3:
-      // Lockdown of channels. Maybe a command not antiRaid?
-      break;
-  }
+module.exports = async function(client, member, database, guildData, userData) {
+	const antiLangWarns = await countAntiLangWarns(database, member.id, member.guild.id);
+	const antiSpamWarns = await countAntiSpamWarns(database, member.id, member.guild.id);
+
+	if (antiLangWarns >= 3 || antiSpamWarns >= 3) {
+		if (antiLangWarns > antiSpamWarns) {
+			if (guildData.antiLangLevel == 2) {
+				member.roles.add(guildData.muteRole);
+				antiRaidEmbeds(client, member, userData, "mutedLang");
+			} else if (guild.antiLangLevel == 3) {
+				antiRaidEmbeds(client, member, userData, "tempBannedLang");
+			}
+		} else if (antiLangWarns < antiSpamWarns) {
+			if (guildData.antiSpamLevel == 2) {
+				member.roles.add(guildData.muteRole);
+				antiRaidEmbeds(client, member, userData, "mutedSpam");
+			} else if (guild.antiSpamLevel == 3) {
+				antiRaidEmbeds(client, member, userData, "tempBannedSpam");
+			}
+		} else return;
+	} else return;
 };
-
-
-/*if(guildData.antiLangLevel == 3) {
-  countActiveWarns(database, member.id, member.guild.id).then(activeWarns => {
-    if(activeWarns == 3) member.kick();
-  });
-}
-if(guildData.antiRaid == true) {
-  //antiRaid(client, member, database);
-}*/
