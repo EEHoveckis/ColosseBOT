@@ -29,9 +29,13 @@ module.exports = function(client, database, guildData, userData, message) {
 						incrementWarns(database, message);
 						antiLangEmbeds(client, message, guildData, userData, "warnF");
 					} else {
-						message.member.roles.add(guildData.muteRole);
-						incrementMutes(database, message);
-						antiLangEmbeds(client, message, guildData, userData, "mute");
+						if (message.member.roles.cache.has(guildData.muteRole)) {
+							message.delete();
+						} else {
+							message.member.roles.add(guildData.muteRole);
+							incrementMutes(database, message);
+							antiLangEmbeds(client, message, guildData, userData, "mute");
+						}
 					}
 					break;
 				case 3: // Tempbans user for X hours after 3 infractions in X hours.

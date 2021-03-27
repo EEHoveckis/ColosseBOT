@@ -1,7 +1,7 @@
 module.exports = {
 	// Basic settings
 	prefix: "//", // Default prefix for commands.
-	language: "EN", // Currently available languages: EN - English, LV - Latvian.
+	language: "EN", // Currently available languages: EN - English, LV - Latvian, RU - Russian.
 	maintenance: false, // Maintenance mode: No requests are accepted from anyone, but owner.
 	ownerID: "Your Discord ID Goes Here", // Your Discord ID. Needed for ownerOnly, disabled & maintenance commands.
 	botWebsite: "https://YourSite.com", // Website link that will be inserted in every embed.
