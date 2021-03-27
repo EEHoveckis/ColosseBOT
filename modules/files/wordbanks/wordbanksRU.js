@@ -3,7 +3,7 @@
  * Translated by: EEHoveckis | Last Edit: [27/03/2021]
  */
 
-// Answers for 8ball command.
+// Ответы на команду 8ball.
 module.exports.ballreplies = [
 	"Все возможно.",
 	"Без сомнения!",
@@ -96,7 +96,7 @@ module.exports.ballreplies = [
 	"Это точно."
 ];
 
-// Greetings.
+// Приветствия.
 module.exports.greetings = [
 	"Приветствия от говорящих на арабском - مرحبا",
 	"Приветствия от говорящих на бенгальском - নমস্কার",
