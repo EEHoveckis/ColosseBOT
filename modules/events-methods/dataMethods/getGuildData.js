@@ -2,7 +2,7 @@ const createGuildData = require("./createGuildData.js");
 
 module.exports = async function(database, guildID) {
 	try {
-		const guildCollection = database.collection('guilds');
+		const guildCollection = database.collection("guilds");
 
 		const cursor = await guildCollection.findOne({ guild: guildID });
 		if (cursor === null) {
@@ -15,7 +15,7 @@ module.exports = async function(database, guildID) {
 				antiSpamLevel: cursor.antiSpamLevel,
 				antiRaidLevel: cursor.antiRaidLevel,
 				activeHours: cursor.activeHours,
-				defaultRole: cursor.defaultRole,
+				defaultRoles: cursor.defaultRoles,
 				muteRole: cursor.muteRole,
 				modLogs: cursor.modLogs,
 				modLogsChannel: cursor.modLogsChannel,

@@ -2,7 +2,7 @@ const { Int32, Decimal128 } = require("bson");
 
 module.exports = async function(database, userID) {
 	try {
-		const userCollection = database.collection('users');
+		const userCollection = database.collection("users");
 
 		const newDoc = {
 			user: String(userID),

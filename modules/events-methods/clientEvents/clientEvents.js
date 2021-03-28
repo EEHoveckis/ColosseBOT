@@ -16,7 +16,7 @@ module.exports = async function(client, database) {
 	}, 10000);
 
 	client.once("ready", () => {
-		console.log(`\nColosseBOT - The Ultimate Discord Bot\nBot Is Ready!\n`);
+		console.log("\nColosseBOT - The Ultimate Discord Bot\nBot Is Ready!\n");
 	});
 
 	client.on("guildMemberAdd", (member) => {
@@ -40,6 +40,7 @@ module.exports = async function(client, database) {
 		if (message.channel.type == "text") {
 			getGuildData(database, message.guild.id).then(guildData => {
 				getUserData(database, message.author.id).then(userData => {
+					if (message.member.roles.cache.has(guildData.muteRole)) return message.delete();
 					if (antiLang(client, database, guildData, userData, message) == true && guildData.antiLangLevel > 0) return;
 					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.antiSpamLevel > 0) return;
 					checkCommand(client, message, database, guildData);

@@ -2,7 +2,7 @@ const createUserData = require("./createUserData.js");
 
 module.exports = async function(database, userID) {
 	try {
-		const userCollection = database.collection('users');
+		const userCollection = database.collection("users");
 		const cursor = await userCollection.findOne({ user: userID });
 		if (cursor === null) {
 			createUserData(database, userID).then(userData => {

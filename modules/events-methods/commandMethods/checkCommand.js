@@ -26,8 +26,7 @@ module.exports = async function(client, message, database, data) {
 		if (args.length < command.argsCount) return errorEmbeds(client, message, data, "notEnoughArgs", { usage: command.usage });
 	}
 	if (command.cooldown) {
-		const cooldownActive = await cooldowns(client, message, command, database, data);
-		if (cooldownActive == true) return;
+		if (await cooldowns(client, message, command, database, data) == true) return;
 	}
 
 	try {

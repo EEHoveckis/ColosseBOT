@@ -22,5 +22,10 @@ module.exports = async function(client, member, database, guildData, userData) {
 				antiRaidEmbeds(client, member, userData, "tempBannedSpam");
 			}
 		} else return;
-	} else return;
+	}
+	if (guildData.defaultRoles[0] != "None") {
+		member.roles.add(guildData.defaultRoles);
+	} else {
+		return;
+	}
 };

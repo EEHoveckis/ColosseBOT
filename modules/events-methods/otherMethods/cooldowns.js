@@ -3,7 +3,7 @@ const errorEmbeds = require("../../embeds/errorEmbeds.js");
 
 module.exports = async function(client, message, command, database, data) {
 	try {
-		const cooldownsCollection = database.collection('cooldowns');
+		const cooldownsCollection = database.collection("cooldowns");
 		expirationTime = Date.now() + command.cooldown * 1000;
 		const doc = { expirationTime: Long.fromNumber(expirationTime), command: String(command.name), user: String(message.author.id) };
 		const cursor = await cooldownsCollection.findOne({ user: message.author.id, command: command.name });

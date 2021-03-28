@@ -13,13 +13,13 @@ module.exports = function(client, database, guildData, userData, message) {
 	if (found) {
 		countActiveWarns(database, message.author.id, message.guild.id).then(activeWarns => {
 			switch (guildData.antiLangLevel) {
-				case 0: // Do Nothing. AntiLang is disabled in guild.
+				case 0:
 					break;
-				case 1: // Just warns user.
+				case 1:
 					incrementWarns(database, message);
 					antiLangEmbeds(client, message, guildData, userData, "warn");
 					break;
-				case 2: // Mutes user for X hours after 3 infractions in X hours.
+				case 2:
 					if (activeWarns < 2) {
 						addWarn(database, message);
 						incrementWarns(database, message);
@@ -38,7 +38,7 @@ module.exports = function(client, database, guildData, userData, message) {
 						}
 					}
 					break;
-				case 3: // Tempbans user for X hours after 3 infractions in X hours.
+				case 3:
 					if (activeWarns < 2) {
 						addWarn(database, message);
 						incrementWarns(database, message);
@@ -53,7 +53,7 @@ module.exports = function(client, database, guildData, userData, message) {
 						message.member.kick().catch(console.error);
 					}
 					break;
-				case 4: // Permanently bans user after 3 infractions in X hours.
+				case 4:
 					if (activeWarns < 2) {
 						addWarn(database, message);
 						incrementWarns(database, message);

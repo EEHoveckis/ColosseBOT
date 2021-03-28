@@ -2,7 +2,7 @@ const { Int32, Double } = require("bson");
 
 module.exports = async function(database, guildID) {
 	try {
-		const guildCollection = database.collection('guilds');
+		const guildCollection = database.collection("guilds");
 
 		const doc = {
 			guild: String(guildID),
@@ -12,7 +12,7 @@ module.exports = async function(database, guildID) {
 			antiSpamLevel: Int32(1),
 			antiRaidLevel: Int32(1),
 			activeHours: Double(6),
-			defaultRole: String("None"),
+			defaultRoles: ["None"],
 			muteRole: String("None"),
 			modLogs: Int32(0),
 			modLogsChannel: String("None"),
