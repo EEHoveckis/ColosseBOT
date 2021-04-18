@@ -12,7 +12,9 @@ module.exports = async function(database, guildID) {
 			antiSpamLevel: Int32(1),
 			antiRaidLevel: Int32(1),
 			activeHours: Double(6),
+			maxMentions: Int32(5),
 			defaultRoles: ["None"],
+			exemptRoles: ["None"],
 			muteRole: String("None"),
 			modLogs: Int32(0),
 			modLogsChannel: String("None"),
@@ -25,6 +27,7 @@ module.exports = async function(database, guildID) {
 			stats: Boolean(false),
 			xpRate: Double(1),
 			moneyRate: Double(1),
+			personality: String("ROBOT")
 		};
 		const result = await guildCollection.insertOne(doc);
 	} catch (e) {

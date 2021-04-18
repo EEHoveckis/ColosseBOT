@@ -1,6 +1,6 @@
 /*
  * Language Strings - Latvian Language
- * Translated by: EEHoveckis | Last Edit: [27/03/2021]
+ * Translated by: EEHoveckis | Last Edit: [18/04/2021]
  */
 
 // Atbildes 8ball komandai.
@@ -137,44 +137,48 @@ module.exports.greetings = [
 ];
 
 module.exports.antiLangStrings = {
-	badLanguage: "Sliktas valodas lietošana",
-	warn: "%author% tika brīdināts par sliktu valodu!",
+	warn: "%author% tika brīdināts!",
 	warnX: "Šis ir brīdinājums %active% no 3, %hours% stundu laikā!",
 	warnFinal: [
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet apklusināts!",
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet izmests uz laiku!",
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
 	],
-	mute: "%author% tika apklusināts par sliktas valodas izmantošanu!",
-	muteDM: "Jūs tikāt apklusināts ģildē %guild% par sliktas valodas izmantošanu!",
-	kick: "%author% tika izmests uz laiku par sliktas valodas izmantošanu!",
-	kickDM: "Jūs tikāt uz laiku izmests no ģildes %guild% par sliktas valodas izmantošanu!",
-	ban: "%author% tika izmests uz visiem laikiem par sliktas valodas izmantošanu!",
-	banDM: "Jūs tikāt izmests uz visiem laikiem no ģildes %guild% par sliktas valodas izmantošanu!"
+	mute: "%author% tika uz laiku apklusināts!",
+	muteDM: "Jūs tikāt apklusināts ģildē %guild%!",
+	kick: "%author% tika uz laiku izmests!",
+	kickDM: "Jūs tikāt uz laiku izmests no ģildes %guild%!",
+	ban: "%author% tika uz visiem laikiem izmests!",
+	banDM: "Jūs tikāt uz visiem laikiem izmests no ģildes %guild%!"
+};
+
+module.exports.infractionStrings = {
+	spam: "Pārmērīgs Surogātpasts",
+	mention: "Masveida Pieminēšana",
+	invite: "Ielūguma Saišu Sūtīšana",
+	language: "Sliktas Valodas Lietošana",
+	badName: "Slikta Lietotājvārda Izmantošana"
 };
 
 module.exports.antiSpamStrings = {
-	spamming: "Pārmērīgs spams/surogātpasts",
-	warn: "%author% tika brīdināts par pārmērīgu surogātpastu!",
+	warn: "%author% tika brīdināts!",
 	warnX: "Šis ir brīdinājums %active% no 3, %hours% stundu laikā!",
 	warnFinal: [
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet apklusināts!",
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz laiku!",
-		"Šis ir jūsu pēdējais brīdinājums! Nākamais pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet apklusināts!",
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet izmests uz laiku!",
+		"Šis ir jūsu pēdējais brīdinājums! Vēl viens pārkāpums, un jūs tiksiet izmests uz visiem laikiem!"
 	],
-	mute: "%author% tika apklusināts par pārmērīgu spamu/surogātpastu!",
-	muteDM: "Jūs tikāt apklusināts ģildē %guild% par pārmērīgu spamu/surogātpastu!",
-	kick: "%author% tika izmests uz laiku par pārmērīgu spamu/surogātpastu!",
-	kickDM: "Jūs tikāt uz laiku izmests no ģildes %guild% par pārmērīgu spamu/surogātpastu!",
-	ban: "%author% tika izmests uz visiem laikiem par pārmērīgu spamu/surogātpastu!",
-	banDM: "Jūs tikāt izmests uz visiem laikiem no ģildes %guild% par pārmērīgu spamu/surogātpastu!"
+	mute: "%author% tika uz laiku apklusināts!",
+	muteDM: "Jūs tikāt uz laiku apklusināts ģildē %guild%!",
+	kick: "%author% tika uz laiku izmests!",
+	kickDM: "Jūs tikāt uz laiku izmests no ģildes %guild%!",
+	ban: "%author% tika uz visiem laikiem izmests!",
+	banDM: "Jūs tikāt uz visiem laikiem izmests no ģildes %guild%!"
 };
 
 module.exports.antiRaidStrings = {
-	mutedLang: "Jūs šobrīd esat apklusināts šijā ģildē par sliktas valodas izmantošanu!",
-	tempBanLang: "Jūs esat uz laiku izmests no šīs ģildes par sliktas valodas izmantošanu!",
-	mutedSpam: "Jūs šobrīd esat apklusināts šijā ģildē par pārmērīgu spamu/surogātpastu!",
-	tempBanSpam: "Jūs esat uz laiku izmests no šīs ģildes par pārmērīgu spamu/surogātpastu!",
+	muted: "Jūs šobrīd esat apklusināts šijā ģildē!",
+	tempBan: "Jūs esat uz laiku izmests no šīs ģildes!",
 	lockdownActive: "Šī ģilde šobrīd ir slēgta un nepieņem jaunus biedrus.\nLūdzu mēģiniet vēlreiz vēlāk."
 };
 
@@ -189,7 +193,9 @@ module.exports.variousStrings = {
 	mutedUser: "Apklusinātais lietotājs",
 	bannedUser: "Izmestais lietotājs",
 	reason: "Iemesls",
-	messageContent: "Nosūtītā ziņa"
+	messageContent: "Nosūtītā ziņa",
+	logs: "Ieraksti",
+	id: "ID"
 };
 
 module.exports.errorStrings = {

@@ -2,8 +2,8 @@ const antiRaid = require("../antiRaid/antiRaid.js");
 const antiLang = require("../antiLang/antiLang.js");
 const antiSpam = require("../antiSpam/antiSpam.js");
 const autoUnmute = require("../otherMethods/autoUnmute.js");
+const autoUnkick = require("../otherMethods/autoUnkick.js");
 const deleteExpiredWarns = require("../otherMethods/deleteExpiredWarns.js");
-const welcomeEmbeds = require("../../embeds/welcomeEmbeds.js");
 const checkCommand = require("../commandMethods/checkCommand.js");
 const getGuildData = require("../dataMethods/getGuildData.js");
 const getUserData = require("../dataMethods/getUserData.js");
@@ -13,6 +13,7 @@ module.exports = async function(client, database) {
 	setInterval(() => {
 		deleteExpiredWarns(client, database);
 		autoUnmute(client, database);
+		autoUnkick(client, database);
 	}, 10000);
 
 	client.once("ready", () => {
@@ -24,15 +25,11 @@ module.exports = async function(client, database) {
 			getUserData(database, member.id).then(userData => {
 				antiRaid(client, member, database, guildData, userData);
 			});
-			/*if(guildData.welcomeLogs == true) {
-			  welcomeEmbeds(client, member, guildData);
-			}*/
 		});
 	});
 
 	client.on("guildCreate", (guild) => {
 		getGuildData(database, guild.id);
-		// To be filled later
 	});
 
 	client.on("message", (message) => {

@@ -15,7 +15,9 @@ module.exports = async function(database, guildID) {
 				antiSpamLevel: cursor.antiSpamLevel,
 				antiRaidLevel: cursor.antiRaidLevel,
 				activeHours: cursor.activeHours,
+				maxMentions: cursor.maxMentions,
 				defaultRoles: cursor.defaultRoles,
+				exemptRoles: cursor.exemptRoles,
 				muteRole: cursor.muteRole,
 				modLogs: cursor.modLogs,
 				modLogsChannel: cursor.modLogsChannel,
@@ -27,7 +29,8 @@ module.exports = async function(database, guildID) {
 				welcomeLogsChannel: cursor.welcomeLogsChannel,
 				stats: cursor.stats,
 				xpRate: cursor.xpRate,
-				moneyRate: cursor.moneyRate
+				moneyRate: cursor.moneyRate,
+				personality: cursor.personality
 			};
 			return guildData;
 		}

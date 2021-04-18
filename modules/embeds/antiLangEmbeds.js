@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
 const { colorYellow, colorOrange, colorRed, colorBlack, botWebsite } = require("../files/config.js");
 
-module.exports = function(client, message, guildData, userData, choice, activeWarns) {
+module.exports = function(client, message, guildData, userData, choice, otherArgs) {
 	const guildStrings = require(`../files/wordbanks/wordbanks${guildData.language}.js`).antiLangStrings;
-	const variousStrings = require(`../files/wordbanks/wordbanks${guildData.language}.js`).variousStrings;
 	const userStrings = require(`../files/wordbanks/wordbanks${userData.language}.js`).antiLangStrings;
+	const guildVariousStrings = require(`../files/wordbanks/wordbanks${guildData.language}.js`).variousStrings;
+	const userVariousStrings = require(`../files/wordbanks/wordbanks${userData.language}.js`).variousStrings;
+	const { infractionStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
 	message.delete();
 
 	switch (choice) {
@@ -14,19 +16,21 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 			const warnUserEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorYellow)
-				.setDescription(tString);
+				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, infractionStrings[otherArgs.reason]);
 
 			message.channel.send(warnUserEmbed);
 			break;
 		case "warnNF":
 			var tString = guildStrings.warn.replace("%author%", `**${message.author.tag}**`);
-			var tString2 = guildStrings.warnX.replace("%active%", activeWarns);
+			var tString2 = guildStrings.warnX.replace("%active%", otherArgs.activeWarns);
 			tString2 = tString2.replace("%hours%", guildData.activeHours);
 
 			const warnUserNFEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorYellow)
 				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, infractionStrings[otherArgs.reason])
 				.setFooter(tString2);
 
 			message.channel.send(warnUserNFEmbed);
@@ -46,6 +50,7 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorYellow)
 				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, infractionStrings[otherArgs.reason])
 				.setFooter(guildStrings.warnFinal[i]);
 
 			message.channel.send(warnUserFEmbed);
@@ -57,14 +62,16 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 			const muteUserEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorOrange)
-				.setDescription(tString);
+				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, otherArgs.reason);
 
 			message.channel.send(muteUserEmbed);
 
 			const muteDMEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorOrange)
-				.setDescription(tString2);
+				.setDescription(tString2)
+				.addField(`${userVariousStrings.reason}:`, otherArgs.reason2);
 
 			message.member.send(muteDMEmbed).catch(console.error);
 			break;
@@ -75,14 +82,16 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 			const kickUserEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorRed)
-				.setDescription(tString);
+				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, otherArgs.reason);
 
 			message.channel.send(kickUserEmbed);
 
 			const kickDMEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorRed)
-				.setDescription(tString2);
+				.setDescription(tString2)
+				.addField(`${userVariousStrings.reason}:`, otherArgs.reason2);
 
 			message.member.send(kickDMEmbed).catch(console.error);
 			break;
@@ -93,14 +102,16 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 			const banUserEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorBlack)
-				.setDescription(tString);
+				.setDescription(tString)
+				.addField(`${guildVariousStrings.reason}:`, otherArgs.reason);
 
 			message.channel.send(banUserEmbed);
 
 			const banDMEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || AntiLang ⋘`, "", botWebsite)
 				.setColor(colorBlack)
-				.setDescription(tString2);
+				.setDescription(tString2)
+				.addField(`${userVariousStrings.reason}:`, otherArgs.reason2);
 
 			message.member.send(banDMEmbed).catch(console.error);
 	}
@@ -114,11 +125,11 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 				case "warnNF":
 				case "warnF":
 					const warnEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorYellow)
-						.addField(variousStrings.warnedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.warnedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, infractionStrings[otherArgs.reason])
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel).send(warnEmbed);
 					break;
@@ -126,9 +137,9 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 					const muteEmbed = new Discord.MessageEmbed()
 						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
 						.setColor(colorOrange)
-						.addField(variousStrings.mutedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.mutedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel).send(muteEmbed);
 					break;
@@ -136,19 +147,19 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 					const kickEmbed = new Discord.MessageEmbed()
 						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
 						.setColor(colorRed)
-						.addField(variousStrings.bannedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.bannedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel).send(kickEmbed);
 					break;
 				case "ban":
 					const banEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorBlack)
-						.addField(variousStrings.bannedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.bannedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel).send(banEmbed);
 					break;
@@ -160,41 +171,41 @@ module.exports = function(client, message, guildData, userData, choice, activeWa
 				case "warnNF":
 				case "warnF":
 					const warnEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorYellow)
-						.addField(variousStrings.warnedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.warnedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, infractionStrings[otherArgs.reason])
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel.warns).send(warnEmbed);
 					break;
 				case "mute":
 					const muteEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorOrange)
-						.addField(variousStrings.mutedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.mutedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}:`, otherArgs.infractionID);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel.mutes).send(muteEmbed);
 					break;
 				case "kick":
 					const kickEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorRed)
-						.addField(variousStrings.bannedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.bannedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel.kicks).send(kickEmbed);
 					break;
 				case "ban":
 					const banEmbed = new Discord.MessageEmbed()
-						.setAuthor(`⋙ ${client.user.username} || AntiLang Logs ⋘`, "", botWebsite)
+						.setAuthor(`⋙ ${client.user.username} || AntiLang ${guildVariousStrings.logs} ⋘`, "", botWebsite)
 						.setColor(colorBlack)
-						.addField(variousStrings.bannedUser, message.author.tag)
-						.addField(variousStrings.reason, guildStrings.badLanguage)
-						.addField(variousStrings.messageContent, message.content);
+						.addField(`${guildVariousStrings.bannedUser}:`, message.author.tag)
+						.addField(`${guildVariousStrings.reason}:`, otherArgs.reason)
+						.setFooter(`${guildVariousStrings.id}: ${otherArgs.infractionID}`);
 
 					client.guilds.resolve(message.guild.id).channels.resolve(guildData.modLogsChannel.bans).send(banEmbed);
 					break;

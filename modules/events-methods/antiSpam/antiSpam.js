@@ -1,13 +1,13 @@
-const countActiveWarns = require("./countActiveWarns.js");
-const { addWarn, incrementWarns, incrementMutes, incrementKicks, incrementBans } = require("./addInfraction.js");
-const antiSpamEmbeds = require("../../embeds/antiSpamEmbeds.js");
+const messageSpam = require("./messageSpam.js");
+const massMention = require("./massMention.js");
+const inviteLink = require("./inviteLink.js");
 
 module.exports = function(client, database, guildData, userData, usersMap, message) {
 	const LIMIT = 5;
 	const TIME = 7000;
 	const DIFF = 2000;
 	const PUNISHTIME = guildData.activeHours * 60 * 60 * 1000;
-	let spam = false;
+	let spam1 = spam2 = spam3 = false;
 
 	if (usersMap.has(message.author.id)) {
 		const authorData = usersMap.get(message.author.id);
@@ -25,7 +25,7 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 		} else {
 			++msgCount;
 			if (parseInt(msgCount) === LIMIT) {
-				spam = true;
+				spam1 = true;
 			} else {
 				authorData.msgCount = msgCount;
 				usersMap.set(message.author.id, authorData);
@@ -42,66 +42,37 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 		});
 	}
 
-	if (spam) {
-		countActiveWarns(database, message.author.id, message.guild.id).then(activeWarns => {
-			switch (guildData.antiSpamLevel) {
-				case 0: // Do Nothing. AntiLang is disabled in guild.
-					break;
-				case 1: // Just warns user.
-					incrementWarns(database, message);
-					antiSpamEmbeds(client, message, guildData, userData, "warn");
-					break;
-				case 2: // Mutes user for X hours after 3 infractions in X hours.
-					if (activeWarns < 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnNF", activeWarns + 1);
-					} else if (activeWarns == 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnF");
-					} else if (activeWarns == 3) {
-						if (message.member.roles.cache.has(guildData.muteRole)) {
-							message.delete();
-						} else {
-							message.member.roles.add(guildData.muteRole);
-							incrementMutes(database, message);
-							antiSpamEmbeds(client, message, guildData, userData, "mute");
-						}
-					}
-					break;
-				case 3: // Tempbans user for X hours after 3 infractions in X hours.
-					if (activeWarns < 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnNF", activeWarns + 1);
-					} else if (activeWarns == 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnF");
-					} else {
-						incrementKicks(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "kick")
-						message.member.kick().catch(console.error);
-					}
-					break;
-				case 4: // Permanently bans user after 3 infractions in X hours.
-					if (activeWarns < 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnNF", activeWarns + 1);
-					} else if (activeWarns == 2) {
-						addWarn(database, message);
-						incrementWarns(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "warnF");
-					} else {
-						incrementBans(database, message);
-						antiSpamEmbeds(client, message, guildData, userData, "ban")
-						message.member.ban().catch(console.error);
-					}
-					break;
-			}
-		});
+	let mentionCount = 0;
+	const splitMessage = message.content.split(/ +/);
+	for (var i = 0; i < splitMessage.length; i++) {
+		const userMention = /^<@![0-9]{18}>$/gmi.test(splitMessage[i]);
+		const everyoneMention = /^@everyone$/gmi.test(splitMessage[i]);
+		const hereMention = /^@here$/gmi.test(splitMessage[i]);
+		if (userMention || everyoneMention || hereMention) mentionCount++;
 	}
-	return spam;
+	if (mentionCount > guildData.maxMentions) spam2 = true;
+
+	for (var i = 0; i < splitMessage.length; i++) {
+		const invite = /discord.gg\/[0-9A-Za-z]+/gmi.test(splitMessage[i]);
+		if (invite) {
+			spam3 = true;
+			break;
+		}
+	}
+
+	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {
+		return false;
+	} else if (message.author.id == message.guild.ownerID) {
+		return false;
+	} else {
+		if (spam1) { // Finish antiSpam
+			messageSpam(client, database, guildData, userData, message);
+		} else if (spam2) {
+			massMention(client, database, guildData, userData, message);
+		} else if (spam3) {
+			inviteLink(client, database, guildData, userData, message);
+		}
+
+		return spam1 || spam2 || spam3;
+	}
 };

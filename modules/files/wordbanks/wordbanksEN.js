@@ -137,44 +137,48 @@ module.exports.greetings = [
 ];
 
 module.exports.antiLangStrings = {
-	badLanguage: "Usage of Bad Language",
-	warn: "%author% has been warned for bad language!",
+	warn: "%author% has been warned!",
 	warnX: "This is warning %active% out of 3 in %hours% hours!",
 	warnFinal: [
 		"This is your final warning! The following violation will result in mute!",
 		"This is your final warning! The following violation will result in tempban!",
 		"This is your final warning! The following violation will result in permban!"
 	],
-	mute: "%author% has been muted for bad language!",
-	muteDM: "You have been muted in %guild% for bad language!",
-	kick: "%author% has been temporarily banned for bad language!",
-	kickDM: "You have been temporarily banned from %guild% for bad language!",
-	ban: "%author% has been permanently banned for bad language!",
-	banDM: "You have been permanently banned from %guild% for bad language!"
+	mute: "%author% has been temporarily muted!",
+	muteDM: "You have been temporarily muted in %guild%!",
+	kick: "%author% has been temporarily banned!",
+	kickDM: "You have been temporarily banned from %guild%!",
+	ban: "%author% has been permanently banned!",
+	banDM: "You have been permanently banned from %guild%!"
+};
+
+module.exports.infractionStrings = {
+	spam: "Message Spam",
+	mention: "Mass Mention",
+	invite: "Sending Invite Link",
+	language: "Usage Of Bad Language",
+	badName: "Usage Of Bad Name"
 };
 
 module.exports.antiSpamStrings = {
-	spamming: "Excessive Spam",
-	warn: "%author% has been warned for excessive spam!",
+	warn: "%author% has been warned!",
 	warnX: "This is warning %active% out of 3 in %hours% hours!",
 	warnFinal: [
 		"This is your final warning! The following violation will result in mute!",
 		"This is your final warning! The following violation will result in tempban!",
 		"This is your final warning! The following violation will result in permban!"
 	],
-	mute: "%author% has been muted for excessive spam!",
-	muteDM: "You have been muted in %guild% for excessive spam!",
-	kick: "%author% has been temporarily banned for excessive spam!",
-	kickDM: "You have been temporarily banned from %guild% for excessive spam!",
-	ban: "%author% has been permanently banned for excessive spam!",
-	banDM: "You have been permanently banned from %guild% for excessive spam!"
+	mute: "%author% has been temporarily muted!",
+	muteDM: "You have been temporarily muted in %guild%!",
+	kick: "%author% has been temporarily banned!",
+	kickDM: "You have been temporarily banned from %guild%!",
+	ban: "%author% has been permanently banned!",
+	banDM: "You have been permanently banned from %guild%!"
 };
 
 module.exports.antiRaidStrings = {
-	mutedLang: "You are currently muted in this guild for bad language!",
-	tempBanLang: "You are currently banned from this guild for bad language!",
-	mutedSpam: "You are currently muted in this guild for excessive spam!",
-	tempBanSpam: "You are currently banned from this guild for spam!",
+	muted: "You are currently muted in this guild!",
+	tempBan: "You are currently banned from this guild!",
 	lockdownActive: "This guild is currently on lockdown and doesn't accept new members.\nPlease try again later."
 };
 
@@ -189,7 +193,9 @@ module.exports.variousStrings = {
 	mutedUser: "Muted User",
 	bannedUser: "Banned User",
 	reason: "Reason",
-	messageContent: "Message"
+	messageContent: "Message",
+	logs: "Logs",
+	id: "ID"
 };
 
 module.exports.errorStrings = {
