@@ -3,22 +3,15 @@ const countActiveWarns = require("../otherMethods/countActiveWarns.js");
 
 module.exports = function(client, member, database, guildData, userData) {
 
-
 	if (guildData.antiRaidLevel == 0) {
 		// Do Nothing. AntiRaid is disabled.
 	} else if (guildData.antiRaidLevel == 1) {
 		countActiveWarns(database, member.id, member.guild.id).then(activeWarns => {
 			if (activeWarns == 3) {
-				if (guildData.antiLangLevel == 2) {
+				if (guildData.punishmentLevel == 2) {
 					member.roles.add(guildData.muteRole);
 					antiRaidEmbeds(client, member, userData, "muted");
-				} else if (guildData.antiLangLevel == 3) {
-					antiRaidEmbeds(client, member, userData, "tempBan");
-					return;
-				} else if (guildData.antiSpamLevel == 2) {
-					member.roles.add(guildData.muteRole);
-					antiRaidEmbeds(client, member, userData, "muted");
-				} else if (guildData.antiSpamLevel == 3) {
+				} else if (guildData.punishmentLevel == 3) {
 					antiRaidEmbeds(client, member, userData, "tempBan");
 					return;
 				}

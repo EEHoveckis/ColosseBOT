@@ -7,7 +7,7 @@ const antiLangEmbeds = require("../../embeds/antiLangEmbeds.js");
 module.exports = function(client, database, guildData, userData, message) {
 	infractionID(database).then(infractionID => {
 		countActiveWarns(database, message.author.id, message.guild.id).then(activeWarns => {
-			switch (guildData.antiLangLevel) {
+			switch (guildData.punishmentLevel) {
 				case 0:
 					break;
 				case 1:

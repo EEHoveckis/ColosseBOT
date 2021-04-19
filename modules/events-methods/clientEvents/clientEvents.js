@@ -38,8 +38,8 @@ module.exports = async function(client, database) {
 			getGuildData(database, message.guild.id).then(guildData => {
 				getUserData(database, message.author.id).then(userData => {
 					if (message.member.roles.cache.has(guildData.muteRole)) return message.delete();
-					if (antiLang(client, database, guildData, userData, message) == true && guildData.antiLangLevel > 0) return;
-					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.antiSpamLevel > 0) return;
+					if (antiLang(client, database, guildData, userData, message) == true && guildData.punishmentLevel > 0) return;
+					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.punishmentLevel > 0) return;
 					checkCommand(client, message, database, guildData);
 				});
 			});
