@@ -1,5 +1,6 @@
 const badLanguage = require("./badLanguage.js");
 const badName = require("./badName.js");
+const botStats = require("../dataMethods/botStats.js");
 const badWords = require("../../files/wordbanks/badWords.js");
 
 module.exports = function(client, database, guildData, userData, message) {
@@ -22,6 +23,7 @@ module.exports = function(client, database, guildData, userData, message) {
 			return false;
 		} else {
 			badLanguage(client, database, guildData, userData, message);
+			botStats(database, "antiLang");
 			return found;
 		}
 	} else if (found2) {
@@ -29,6 +31,7 @@ module.exports = function(client, database, guildData, userData, message) {
 			return false;
 		} else {
 			badName(client, database, guildData, userData, message);
+			botStats(database, "antiLang");
 			return found2;
 		}
 	} else return false;

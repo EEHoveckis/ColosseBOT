@@ -1,3 +1,4 @@
+const botStats = require("../dataMethods/botStats.js");
 const messageSpam = require("./messageSpam.js");
 const massMention = require("./massMention.js");
 const inviteLink = require("./inviteLink.js");
@@ -65,7 +66,7 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	} else if (message.author.id == message.guild.ownerID) {
 		return false;
 	} else {
-		if (spam1) { // Finish antiSpam
+		if (spam1) {
 			messageSpam(client, database, guildData, userData, message);
 		} else if (spam2) {
 			massMention(client, database, guildData, userData, message);
@@ -73,6 +74,7 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 			inviteLink(client, database, guildData, userData, message);
 		}
 
+		if (spam1 || spam2 || spam3) botStats(database, "antiSpam");
 		return spam1 || spam2 || spam3;
 	}
 };

@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const cooldowns = require("../otherMethods/cooldowns.js");
 const errorEmbeds = require("../../embeds/errorEmbeds.js");
+const botStats = require("../dataMethods/botStats.js");
 const { prefix, maintenance, ownerID } = require("../../files/config.js");
 
 module.exports = async function(client, message, database, data) {
@@ -31,7 +32,9 @@ module.exports = async function(client, message, database, data) {
 
 	try {
 		command.execute(client, message, args, database, data);
+		botStats(database, "commands", { commandName: commandName });
 	} catch (error) {
 		errorEmbeds(client, message, data, "unknownError", { commandName: commandName, error: error });
+		botStats(database, "errors", { commandName: commandName });
 	}
 };
