@@ -1,13 +1,7 @@
-const antiRaid = require("../antiRaid/antiRaid.js");
-const antiLang = require("../antiLang/antiLang.js");
-const antiSpam = require("../antiSpam/antiSpam.js");
+const fs = require("fs");
 const autoUnmute = require("../otherMethods/autoUnmute.js");
 const autoUnkick = require("../otherMethods/autoUnkick.js");
-const botStats = require("../dataMethods/botStats.js");
-const checkCommand = require("../commandMethods/checkCommand.js");
 const deleteExpiredWarns = require("../otherMethods/deleteExpiredWarns.js");
-const getGuildData = require("../dataMethods/getGuildData.js");
-const getUserData = require("../dataMethods/getUserData.js");
 const usersMap = new Map();
 
 module.exports = async function(client, database) {
@@ -17,38 +11,14 @@ module.exports = async function(client, database) {
 		autoUnkick(client, database);
 	}, 10000);
 
-	client.once("ready", () => {
-		console.log("\nColosseBOT - The Ultimate Discord Bot\nBot Is Ready!\n");
-	});
+	const eventFiles = fs.readdirSync("./modules/events-methods/clientEvents/events").filter(file => file.endsWith(".js"));
 
-	client.on("guildMemberAdd", (member) => {
-		getGuildData(database, member.guild.id).then(guildData => {
-			getUserData(database, member.id).then(userData => {
-				antiRaid(client, member, database, guildData, userData);
-			});
-		});
-	});
-
-	client.on("guildCreate", (guild) => {
-		getGuildData(database, guild.id);
-	});
-
-	client.on("message", (message) => {
-		if (message.author.bot) return;
-		botStats(database, "messages");
-		if (message.channel.type == "text") {
-			getGuildData(database, message.guild.id).then(guildData => {
-				getUserData(database, message.author.id).then(userData => {
-					if (message.member.roles.cache.has(guildData.muteRole)) return message.delete();
-					if (antiLang(client, database, guildData, userData, message) == true && guildData.punishmentLevel > 0) return;
-					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.punishmentLevel > 0) return;
-					checkCommand(client, message, database, guildData);
-				});
-			});
+	for (const file of eventFiles) {
+		const event = require(`./events/${file}`);
+		if (event.once) {
+			client.once(event.name, (...args) => event.execute(...args, client));
 		} else {
-			getUserData(database, message.author.id).then(userData => {
-				checkCommand(client, message, database, userData);
-			});
+			client.on(event.name, (...args) => event.execute(...args, client, database, usersMap));
 		}
-	});
+	}
 };
