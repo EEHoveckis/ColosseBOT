@@ -21,7 +21,10 @@ module.exports = async function(client, message, database, data) {
 	if (command.guildOnly && message.channel.type !== "text") return errorEmbeds(client, message, data, "guildOnly");
 	if (command.directOnly && message.channel.type !== "dm") return errorEmbeds(client, message, data, "directOnly");
 	if (command.guildOwnerOnly && message.author.id != message.guild.ownerID) return errorEmbeds(client, message, data, "guildOwnerOnly");
-	if (command.permsCheck && !message.member.hasPermission(command.neededPerms, { checkAdmin: true, checkOwner: true })) return errorEmbeds(client, message, data, "noPerms");
+	if (command.permsNeeded) {
+		const authorPerms = message.channel.permissionsFor(message.author);
+		if (!authorPerms || !authorPerms.has(command.permsNeeded)) return errorEmbeds(client, message, data, "noPerms");
+	}
 	if (command.args) {
 		if (!args.length && command.argsCount >= 1) return errorEmbeds(client, message, data, "noArgsProvided", { usage: command.usage });
 		if (args.length < command.argsCount) return errorEmbeds(client, message, data, "notEnoughArgs", { usage: command.usage });
