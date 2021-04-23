@@ -5,12 +5,12 @@ const botStats = require("../dataMethods/botStats.js");
 const { prefix, maintenance, ownerID } = require("../../files/config.js");
 
 module.exports = async function(client, message, database, data) {
-	if (message.content.startsWith(data.prefix)) {
-		var prefixLength = data.prefix.length;
-	} else if (message.content.startsWith(prefix)) {
-		var prefixLength = prefix.length;
-	} else return;
-	const args = message.content.slice(prefixLength).split(/ +/);
+	const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)}|${escapeRegex(data.prefix)})\\s*`);
+	if (!prefixRegex.test(message.content)) return;
+
+	const [, matchedPrefix] = message.content.match(prefixRegex);
+	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aka && cmd.aka.includes(commandName));
 	if (!command) return errorEmbeds(client, message, data, "noCommand", { commandName: commandName });
