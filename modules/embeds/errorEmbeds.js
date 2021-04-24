@@ -20,9 +20,9 @@ module.exports = function(client, message, data, choice, otherArgs) {
 					.setAuthor(`⋙ ${client.user.username} || ${otherArgs.commandName} ${devStrings.errorStrings.error} ⋘`, "", botWebsite)
 					.setColor(colorDarkRed)
 					.setDescription(devStrings.errorStrings.errorDev)
-					.addField(`${devStrings.variousStrings.guild} `, message.guild.id)
-					.addField(`${devStrings.variousStrings.channel} `, message.channel.id)
-					.addField(`${devStrings.errorStrings.error} `, otherArgs.error);
+					.addField(`${devStrings.variousStrings.guild}:`, message.guild.id)
+					.addField(`${devStrings.variousStrings.channel}:`, message.channel.id)
+					.addField(`${devStrings.errorStrings.error}:`, otherArgs.error);
 
 				client.guilds.resolve(devGuild).channels.resolve(primaryLogs).send(unknownErrorGuildEmbed);
 			} else {
@@ -30,8 +30,8 @@ module.exports = function(client, message, data, choice, otherArgs) {
 					.setAuthor(`⋙ ${client.user.username} || ${otherArgs.commandName} ${devStrings.errorStrings.error} ⋘`, "", botWebsite)
 					.setColor(colorDarkRed)
 					.setDescription(devStrings.errorStrings.errorDev)
-					.addField(`${devStrings.variousStrings.author} `, message.author.tag)
-					.addField(`${devStrings.errorStrings.error} `, otherArgs.error);
+					.addField(`${devStrings.variousStrings.author}:`, message.author.tag)
+					.addField(`${devStrings.errorStrings.error}:`, otherArgs.error);
 
 				client.guilds.resolve(devGuild).channels.resolve(primaryLogs).send(unknownErrorDmEmbed);
 			}
