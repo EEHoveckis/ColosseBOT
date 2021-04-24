@@ -25,7 +25,7 @@ module.exports = async function(database, guildID) {
 			welcomeLogsChannel: String("None"),
 			stats: Boolean(false),
 			xpRate: Double(1),
-			moneyRate: Double(1),
+			coinRate: Double(1),
 			personality: String("ROBOT")
 		};
 		const result = await guildCollection.insertOne(doc);

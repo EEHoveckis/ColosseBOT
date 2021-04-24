@@ -28,7 +28,7 @@ module.exports = async function(database, guildID) {
 				welcomeLogsChannel: cursor.welcomeLogsChannel,
 				stats: cursor.stats,
 				xpRate: cursor.xpRate,
-				moneyRate: cursor.moneyRate,
+				coinRate: cursor.coinRate,
 				personality: cursor.personality
 			};
 			return guildData;

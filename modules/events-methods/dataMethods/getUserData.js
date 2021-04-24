@@ -13,7 +13,7 @@ module.exports = async function(database, userID) {
 				user: cursor.user,
 				language: cursor.language,
 				prefix: cursor.prefix,
-				money: cursor.money,
+				coins: cursor.coins,
 				xp: cursor.xp,
 				warns: cursor.warns,
 				mutes: cursor.mutes,

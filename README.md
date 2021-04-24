@@ -17,7 +17,7 @@ Current Status - `Not Ready For Release`
 - [x] AntiLang Module (Still needs setup command)
 - [x] AntiSpam Module (Still needs setup command)
 - [x] AntiRaid Module (Still needs setup command & lockdown Command)
-- [ ] Economy System
+- [x] Economy System (Basic System. Upgrades coming soon)
 - [ ] Amazing Dashboard
 - [x] Guild & User String Translations (Still needs setup command)
 

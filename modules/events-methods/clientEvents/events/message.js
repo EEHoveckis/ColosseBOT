@@ -4,6 +4,7 @@ const botStats = require("../../dataMethods/botStats.js");
 const checkCommand = require("../../commandMethods/checkCommand.js");
 const getGuildData = require("../../dataMethods/getGuildData.js");
 const getUserData = require("../../dataMethods/getUserData.js");
+const userEconomy = require("../../dataMethods/userEconomy.js");
 
 module.exports = {
 	name: "message",
@@ -16,7 +17,11 @@ module.exports = {
 					if (message.member.roles.cache.has(guildData.muteRole)) return message.delete();
 					if (antiLang(client, database, guildData, userData, message) == true && guildData.punishmentLevel > 0) return;
 					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.punishmentLevel > 0) return;
-					checkCommand(client, message, database, guildData);
+					checkCommand(client, message, database, guildData).then(isCommand => {
+						if (isCommand == false) {
+							userEconomy(database, guildData, userData, "add");
+						} else return;
+					});
 				});
 			});
 		} else {
