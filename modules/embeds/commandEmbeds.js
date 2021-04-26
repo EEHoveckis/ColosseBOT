@@ -8,11 +8,20 @@ module.exports = function(client, message, data, command, otherArgs) {
 			const ballEmbed = new Discord.MessageEmbed()
 				.setAuthor(`⋙ ${client.user.username} || 8Ball ⋘`, "", botWebsite)
 				.setColor(colorGreen)
-				.addField(variousStrings.question, otherArgs.question)
-				.addField(variousStrings.answer, otherArgs.reply)
+				.addField(`${variousStrings.question}:`, otherArgs.question)
+				.addField(`${variousStrings.answer}:`, otherArgs.reply)
 				.setFooter(variousStrings.providedBy.replace("%provider%", "ColosseBOT"), eightBallThumbnail);
 
 			message.channel.send(ballEmbed);
+			break;
+		case "balance":
+			const balanceEmbed = new Discord.MessageEmbed()
+				.setAuthor(`⋙ ${client.user.username} || Balance ⋘`, "", botWebsite)
+				.setColor(colorGreen)
+				.addField(`${variousStrings.coins}:`, otherArgs.userData.coins)
+				.addField(`${variousStrings.xp}:`, otherArgs.userData.xp);
+
+			message.channel.send(balanceEmbed);
 			break;
 	}
 };

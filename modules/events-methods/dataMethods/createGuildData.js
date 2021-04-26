@@ -12,6 +12,7 @@ module.exports = async function(database, guildID) {
 			antiRaidLevel: Int32(1),
 			activeHours: Double(6),
 			maxMentions: Int32(5),
+			maxEmoji: Int32(5),
 			defaultRoles: ["None"],
 			exemptRoles: ["None"],
 			muteRole: String("None"),

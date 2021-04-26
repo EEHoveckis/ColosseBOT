@@ -19,7 +19,7 @@ module.exports = {
 					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.punishmentLevel > 0) return;
 					checkCommand(client, message, database, guildData).then(isCommand => {
 						if (isCommand == false) {
-							userEconomy(database, guildData, userData, "add");
+							userEconomy(database, "add", { guildData: guildData, userData: userData });
 						} else return;
 					});
 				});

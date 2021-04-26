@@ -1,6 +1,6 @@
 /*
  * Language Strings - Russian Language
- * Translated by: EEHoveckis | Last Edit: [18/04/2021]
+ * Translated by: EEHoveckis | Last Edit: [26/04/2021]
  */
 
 // Ответы на команду 8ball.
@@ -157,7 +157,9 @@ module.exports.infractionStrings = {
 	mention: "Массовое Упоминание",
 	invite: "Отправка Пригласительной Ссылки",
 	language: "Применение Вульгарной Лексики",
-	badName: "Использование Плохого Имени"
+	badName: "Использование Плохого Имени",
+	zalgo: "Применение Текста Залго",
+	emoji: "Массовое Применение Эмодзи"
 };
 
 module.exports.antiSpamStrings = {
@@ -195,7 +197,9 @@ module.exports.variousStrings = {
 	reason: "Причина",
 	messageContent: "Сообщение",
 	logs: "Журналы",
-	id: "ИД"
+	id: "ИД",
+	coins: "Монеты",
+	xp: "Опыт"
 };
 
 module.exports.errorStrings = {

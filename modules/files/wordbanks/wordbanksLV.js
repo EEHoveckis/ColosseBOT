@@ -1,6 +1,6 @@
 /*
  * Language Strings - Latvian Language
- * Translated by: EEHoveckis | Last Edit: [18/04/2021]
+ * Translated by: EEHoveckis | Last Edit: [27/04/2021]
  */
 
 // Atbildes 8ball komandai.
@@ -157,7 +157,9 @@ module.exports.infractionStrings = {
 	mention: "Masveida Pieminēšana",
 	invite: "Ielūguma Saišu Sūtīšana",
 	language: "Sliktas Valodas Lietošana",
-	badName: "Slikta Lietotājvārda Izmantošana"
+	badName: "Slikta Lietotājvārda Izmantošana",
+	zalgo: "Zalgo Teksta Lietošana",
+	emoji: "Masveida Emoji Lietošana"
 };
 
 module.exports.antiSpamStrings = {
@@ -195,7 +197,9 @@ module.exports.variousStrings = {
 	reason: "Iemesls",
 	messageContent: "Nosūtītā ziņa",
 	logs: "Ieraksti",
-	id: "ID"
+	id: "ID",
+	coins: "Monētas",
+	xp: "Pieredze"
 };
 
 module.exports.errorStrings = {

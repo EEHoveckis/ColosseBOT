@@ -1,14 +1,18 @@
+const unicodeEmojis = require("../../files/wordbanks/unicodeEmojis.js");
 const botStats = require("../dataMethods/botStats.js");
-const messageSpam = require("./messageSpam.js");
 const massMention = require("./massMention.js");
+const massEmoji = require("./massEmoji.js");
+const messageSpam = require("./messageSpam.js");
 const inviteLink = require("./inviteLink.js");
+const zalgoText = require("./zalgoText.js");
 
 module.exports = function(client, database, guildData, userData, usersMap, message) {
 	const LIMIT = 5;
 	const TIME = 7000;
 	const DIFF = 2000;
 	const PUNISHTIME = guildData.activeHours * 60 * 60 * 1000;
-	let spam1 = spam2 = spam3 = false;
+	let spam1 = spam2 = spam3 = spam4 = spam5 = false;
+	let mentionCount = 0;
 
 	if (usersMap.has(message.author.id)) {
 		const authorData = usersMap.get(message.author.id);
@@ -43,23 +47,50 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 		});
 	}
 
-	let mentionCount = 0;
 	const splitMessage = message.content.split(/ +/);
-	for (var i = 0; i < splitMessage.length; i++) {
+	for (i = 0; i < splitMessage.length; i++) {
 		const userMention = /^<@![0-9]{18}>$/gmi.test(splitMessage[i]);
+		const roleMention = /^<@&[0-9]{18}>$/gmi.test(splitMessage[i]);
 		const everyoneMention = /^@everyone$/gmi.test(splitMessage[i]);
 		const hereMention = /^@here$/gmi.test(splitMessage[i]);
-		if (userMention || everyoneMention || hereMention) mentionCount++;
+		if (userMention || roleMention || everyoneMention || hereMention) mentionCount++;
 	}
 	if (mentionCount > guildData.maxMentions) spam2 = true;
 
-	for (var i = 0; i < splitMessage.length; i++) {
+	for (i = 0; i < splitMessage.length; i++) {
 		const invite = /discord.gg\/[0-9A-Za-z]+/gmi.test(splitMessage[i]);
 		if (invite) {
 			spam3 = true;
 			break;
 		}
 	}
+
+	function hasZalgo(text) {
+		const re = /%CC%/gmi;
+		return re.test(encodeURIComponent(text));
+	}
+	for (i = 0; i < splitMessage.length; i++) {
+		if (hasZalgo(splitMessage[i]) == true) {
+			spam4 = true;
+			break;
+		}
+	}
+
+	let unicodeEmojiCount = 0;
+	for (i = 0; i < unicodeEmojis.length; i++) {
+		const regexCase = new RegExp(unicodeEmojis[i], "gmi");
+		const unicodeEmoji = ((message.content || '').match(regexCase) || []).length;
+		unicodeEmojiCount += unicodeEmoji;
+	}
+
+	let dividedContent = message.content.replace(/>/gmi, ">\n");
+	const regexCase2 = /<:.+:[0-9]{18}>/gmi;
+	const customEmojiCount = ((dividedContent || '').match(regexCase2) || []).length;
+
+	const totalEmojiCount = unicodeEmojiCount + customEmojiCount;
+	message.channel.send(`Unicode Emojis: ${unicodeEmojiCount}\nCustom Emojis: ${customEmojiCount}\nTotal Emojis: ${totalEmojiCount}`);
+
+	if (totalEmojiCount > guildData.maxEmoji) spam5 = true;
 
 	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {
 		return false;
@@ -72,9 +103,13 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 			massMention(client, database, guildData, userData, message);
 		} else if (spam3) {
 			inviteLink(client, database, guildData, userData, message);
+		} else if (spam4) {
+			zalgoText(client, database, guildData, userData, message);
+		} else if (spam5) {
+			massEmoji(client, database, guildData, userData, message);
 		}
 
-		if (spam1 || spam2 || spam3) botStats(database, "antiSpam");
-		return spam1 || spam2 || spam3;
+		if (spam1 || spam2 || spam3 || spam4 || spam5) botStats(database, "antiSpam");
+		return spam1 || spam2 || spam3 || spam4 || spam5;
 	}
 };

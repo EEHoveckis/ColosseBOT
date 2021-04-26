@@ -157,7 +157,9 @@ module.exports.infractionStrings = {
 	mention: "Mass Mention",
 	invite: "Sending Invite Link",
 	language: "Usage Of Bad Language",
-	badName: "Usage Of Bad Name"
+	badName: "Usage Of Bad Name",
+	zalgo: "Usage of Zalgo Text",
+	emoji: "Mass Usage Of Emojis"
 };
 
 module.exports.antiSpamStrings = {
@@ -195,7 +197,9 @@ module.exports.variousStrings = {
 	reason: "Reason",
 	messageContent: "Message",
 	logs: "Logs",
-	id: "ID"
+	id: "ID",
+	coins: "Coins",
+	xp: "XP"
 };
 
 module.exports.errorStrings = {
