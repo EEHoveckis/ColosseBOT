@@ -1,5 +1,6 @@
 const emojiRegex = require("emoji-regex/RGI_Emoji.js");
 const botStats = require("../dataMethods/botStats.js");
+const capsAbuse = require("./capsAbuse.js");
 const massMention = require("./massMention.js");
 const massEmoji = require("./massEmoji.js");
 const messageSpam = require("./messageSpam.js");
@@ -11,8 +12,9 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	const TIME = 7000;
 	const DIFF = 2000;
 	const PUNISHTIME = guildData.activeHours * 60 * 60 * 1000;
-	let spam1 = spam2 = spam3 = spam4 = spam5 = false;
+	let spam1 = spam2 = spam3 = spam4 = spam5 = spam6 = false;
 	let mentionCount = 0;
+	let unicodeEmojiCount = 0;
 
 	if (usersMap.has(message.author.id)) {
 		const authorData = usersMap.get(message.author.id);
@@ -76,7 +78,6 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 		}
 	}
 
-	let unicodeEmojiCount = 0;
 	const regex = emojiRegex();
 	let match;
 	while (match = regex.exec(message.content)) {
@@ -93,6 +94,12 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	const totalEmojiCount = unicodeEmojiCount + customEmojiCount;
 	if (totalEmojiCount > guildData.maxEmoji) spam5 = true;
 
+	let numUpper = (message.content.match(/[A-Z]/g) || []).length;
+	if (message.content.length >= 20) {
+		const percentage = ((numUpper / message.content.length) * 100).toFixed(3);
+		if (percentage >= 70) spam6 = true;
+	}
+
 	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {
 		return false;
 	} else if (message.author.id == message.guild.ownerID) {
@@ -108,9 +115,11 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 			zalgoText(client, database, guildData, userData, message);
 		} else if (spam5) {
 			massEmoji(client, database, guildData, userData, message);
+		} else if (spam6) {
+			capsAbuse(client, database, guildData, userData, message);
 		}
 
-		if (spam1 || spam2 || spam3 || spam4 || spam5) botStats(database, "antiSpam");
-		return spam1 || spam2 || spam3 || spam4 || spam5;
+		if (spam1 || spam2 || spam3 || spam4 || spam5 || spam6) botStats(database, "antiSpam");
+		return spam1 || spam2 || spam3 || spam4 || spam5 || spam6;
 	}
 };
