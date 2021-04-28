@@ -1,4 +1,4 @@
-const unicodeEmojis = require("../../files/wordbanks/unicodeEmojis.js");
+const emojiRegex = require("emoji-regex/RGI_Emoji.js");
 const botStats = require("../dataMethods/botStats.js");
 const massMention = require("./massMention.js");
 const massEmoji = require("./massEmoji.js");
@@ -77,10 +77,13 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	}
 
 	let unicodeEmojiCount = 0;
-	for (i = 0; i < unicodeEmojis.length; i++) {
-		const regexCase = new RegExp(unicodeEmojis[i], "gmi");
-		const unicodeEmoji = ((message.content || '').match(regexCase) || []).length;
-		unicodeEmojiCount += unicodeEmoji;
+	const regex = emojiRegex();
+	let match;
+	while (match = regex.exec(message.content)) {
+		const emoji = match[0];
+		if ([...emoji].length >= 1) {
+			unicodeEmojiCount += 1;
+		}
 	}
 
 	let dividedContent = message.content.replace(/>/gmi, ">\n");
@@ -88,8 +91,6 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	const customEmojiCount = ((dividedContent || '').match(regexCase2) || []).length;
 
 	const totalEmojiCount = unicodeEmojiCount + customEmojiCount;
-	message.channel.send(`Unicode Emojis: ${unicodeEmojiCount}\nCustom Emojis: ${customEmojiCount}\nTotal Emojis: ${totalEmojiCount}`);
-
 	if (totalEmojiCount > guildData.maxEmoji) spam5 = true;
 
 	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {

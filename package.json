@@ -16,6 +16,7 @@
     "chemymass": "^1.0.2",
     "color-convert": "^2.0.1",
     "discord.js": "^12.2.0",
+    "emoji-regex": "^9.2.2",
     "jshashes": "^1.0.8",
     "mathjs": "^7.1.0",
     "mongodb": "^3.6.5",
