@@ -160,7 +160,8 @@ module.exports.infractionStrings = {
 	badName: "Usage Of Bad Name",
 	zalgo: "Usage of Zalgo Text",
 	emoji: "Mass Usage Of Emojis",
-	caps: "Abuse of Capital Letters"
+	caps: "Abuse of Capital Letters",
+	spoilers: "Abuse of Spoiler Tags"
 };
 
 module.exports.antiSpamStrings = {

@@ -160,7 +160,8 @@ module.exports.infractionStrings = {
 	badName: "Slikta Lietotājvārda Izmantošana",
 	zalgo: "Zalgo Teksta Lietošana",
 	emoji: "Masveida Emoji Lietošana",
-	caps: "Lielo Burtu Pārmērīga Lietošana"
+	caps: "Lielo Burtu Pārmērīga Lietošana",
+	spoilers: "Spoilera Tagu Pārmērīga Izmantošana"
 };
 
 module.exports.antiSpamStrings = {

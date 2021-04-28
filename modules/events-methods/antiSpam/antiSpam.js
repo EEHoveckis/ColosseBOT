@@ -1,10 +1,11 @@
 const emojiRegex = require("emoji-regex/RGI_Emoji.js");
 const botStats = require("../dataMethods/botStats.js");
 const capsAbuse = require("./capsAbuse.js");
+const inviteLink = require("./inviteLink.js");
 const massMention = require("./massMention.js");
 const massEmoji = require("./massEmoji.js");
 const messageSpam = require("./messageSpam.js");
-const inviteLink = require("./inviteLink.js");
+const spoilers = require("./spoilers.js");
 const zalgoText = require("./zalgoText.js");
 
 module.exports = function(client, database, guildData, userData, usersMap, message) {
@@ -12,7 +13,7 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	const TIME = 7000;
 	const DIFF = 2000;
 	const PUNISHTIME = guildData.activeHours * 60 * 60 * 1000;
-	let spam1 = spam2 = spam3 = spam4 = spam5 = spam6 = false;
+	let spam1 = spam2 = spam3 = spam4 = spam5 = spam6 = spam7 = false;
 	let mentionCount = 0;
 	let unicodeEmojiCount = 0;
 
@@ -100,6 +101,10 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 		if (percentage >= 70) spam6 = true;
 	}
 
+	const regexCase3 = /(\|\|)+/gmi;
+	const spoilerCount = ((message.content || '').match(regexCase3) || []).length;
+	if ((spoilerCount / 2) > 5) spam7 = true;
+
 	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {
 		return false;
 	} else if (message.author.id == message.guild.ownerID) {
@@ -117,9 +122,11 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 			massEmoji(client, database, guildData, userData, message);
 		} else if (spam6) {
 			capsAbuse(client, database, guildData, userData, message);
+		} else if (spam7) {
+			spoilers(client, database, guildData, userData, message);
 		}
 
-		if (spam1 || spam2 || spam3 || spam4 || spam5 || spam6) botStats(database, "antiSpam");
-		return spam1 || spam2 || spam3 || spam4 || spam5 || spam6;
+		if (spam1 || spam2 || spam3 || spam4 || spam5 || spam6 || spam7) botStats(database, "antiSpam");
+		return spam1 || spam2 || spam3 || spam4 || spam5 || spam6 || spam7;
 	}
 };
