@@ -4,6 +4,7 @@ const botStats = require("../dataMethods/botStats.js");
 const badWords = require("../../files/wordbanks/badWords.js");
 
 module.exports = function(client, database, guildData, userData, message) {
+	if (guildData.antiLang == false) return false;
 	let found = found2 = false;
 	for (i = 0; i < badWords.length; i++) {
 		const regexCase = new RegExp(`\\b${badWords[i]}\\b`, "gmi");

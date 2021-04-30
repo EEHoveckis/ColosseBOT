@@ -8,8 +8,6 @@ module.exports = function(client, database, guildData, userData, message) {
 	infractionID(database).then(infractionID => {
 		countActiveWarns(database, message.author.id, message.guild.id).then(activeWarns => {
 			switch (guildData.punishmentLevel) {
-				case 0:
-					break;
 				case 1:
 					addWarn(database, message, "caps", infractionID);
 					incrementWarns(database, message);

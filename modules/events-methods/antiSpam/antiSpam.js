@@ -9,6 +9,7 @@ const spoilers = require("./spoilers.js");
 const zalgoText = require("./zalgoText.js");
 
 module.exports = function(client, database, guildData, userData, usersMap, message) {
+	if (guildData.antiSpam == false) return false;
 	const LIMIT = 5;
 	const TIME = 7000;
 	const DIFF = 2000;

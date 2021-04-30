@@ -8,6 +8,8 @@ module.exports = async function(database, guildID) {
 			guild: String(guildID),
 			language: String("EN"),
 			prefix: String("//"),
+			antiLang: Boolean(false),
+			antiSpam: Boolean(false),
 			punishmentLevel: Int32(1),
 			antiRaidLevel: Int32(1),
 			activeHours: Double(6),
