@@ -15,8 +15,12 @@ module.exports = {
 			getGuildData(database, message.guild.id).then(guildData => {
 				getUserData(database, message.author.id).then(userData => {
 					if (message.member.roles.cache.has(guildData.muteRole)) return message.delete();
-					if (antiLang(client, database, guildData, userData, message) == true && guildData.punishmentLevel > 0) return;
-					if (antiSpam(client, database, guildData, userData, usersMap, message) == true && guildData.punishmentLevel > 0) return;
+					const langResult = antiLang(client, database, guildData, userData, message);
+					const spamResult = antiSpam(client, database, guildData, userData, usersMap, message);
+					if ((langResult || spamResult) == true && guildData.punishmentLevel > 0) {
+						message.delete();
+						return;
+					}
 					checkCommand(client, message, database, guildData).then(isCommand => {
 						if (isCommand == false) {
 							userEconomy(database, "add", { guildData: guildData, userData: userData });

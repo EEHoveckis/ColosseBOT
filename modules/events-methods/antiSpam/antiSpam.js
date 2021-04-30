@@ -105,24 +105,28 @@ module.exports = function(client, database, guildData, userData, usersMap, messa
 	const spoilerCount = ((message.content || '').match(regexCase3) || []).length;
 	if ((spoilerCount / 2) > 5) spam7 = true;
 
-	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id))) {
-		return false;
-	} else if (message.author.id == message.guild.ownerID) {
+	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id)) || message.author.id == message.guild.ownerID) {
 		return false;
 	} else {
 		if (spam1) {
 			messageSpam(client, database, guildData, userData, message);
-		} else if (spam2) {
+		}
+		if (spam2) {
 			massMention(client, database, guildData, userData, message);
-		} else if (spam3) {
+		}
+		if (spam3) {
 			inviteLink(client, database, guildData, userData, message);
-		} else if (spam4) {
+		}
+		if (spam4) {
 			zalgoText(client, database, guildData, userData, message);
-		} else if (spam5) {
+		}
+		if (spam5) {
 			massEmoji(client, database, guildData, userData, message);
-		} else if (spam6) {
+		}
+		if (spam6) {
 			capsAbuse(client, database, guildData, userData, message);
-		} else if (spam7) {
+		}
+		if (spam7) {
 			spoilers(client, database, guildData, userData, message);
 		}
 

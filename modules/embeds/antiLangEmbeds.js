@@ -7,7 +7,6 @@ module.exports = function(client, message, guildData, userData, choice, otherArg
 	const guildVariousStrings = require(`../files/wordbanks/wordbanks${guildData.language}.js`).variousStrings;
 	const userVariousStrings = require(`../files/wordbanks/wordbanks${userData.language}.js`).variousStrings;
 	const { infractionStrings } = require(`../files/wordbanks/wordbanks${guildData.language}.js`);
-	message.delete();
 
 	switch (choice) {
 		case "warn":

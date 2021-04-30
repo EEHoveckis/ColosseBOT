@@ -18,21 +18,17 @@ module.exports = function(client, database, guildData, userData, message) {
 		}
 	}
 
-	if (found) {
-		if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id)) || message.author.id == message.guild.ownerID) {
-			return false;
-		} else {
+	if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id)) || message.author.id == message.guild.ownerID) {
+		return false;
+	} else {
+		if (found) {
 			badLanguage(client, database, guildData, userData, message);
 			botStats(database, "antiLang");
-			return found;
 		}
-	} else if (found2) {
-		if (message.member.roles.cache.some(role => guildData.exemptRoles.includes(role.id)) || message.author.id == message.guild.ownerID) {
-			return false;
-		} else {
+		if (found2) {
 			badName(client, database, guildData, userData, message);
 			botStats(database, "antiLang");
-			return found2;
 		}
-	} else return false;
+		return found || found2;
+	}
 };
