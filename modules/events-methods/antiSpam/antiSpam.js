@@ -1,12 +1,12 @@
 const emojiRegex = require("emoji-regex/RGI_Emoji.js");
 const botStats = require("../dataMethods/stats/botStats.js");
-const capsAbuse = require("./capsAbuse.js");
-const inviteLink = require("./inviteLink.js");
-const massMention = require("./massMention.js");
-const massEmoji = require("./massEmoji.js");
-const messageSpam = require("./messageSpam.js");
-const spoilers = require("./spoilers.js");
-const zalgoText = require("./zalgoText.js");
+const capsAbuse = require("./spamActions/capsAbuse.js");
+const inviteLink = require("./spamActions/inviteLink.js");
+const massMention = require("./spamActions/massMention.js");
+const massEmoji = require("./spamActions/massEmoji.js");
+const messageSpam = require("./spamActions/messageSpam.js");
+const spoilers = require("./spamActions/spoilers.js");
+const zalgoText = require("./spamActions/zalgoText.js");
 
 module.exports = function(client, database, guildData, userData, usersMap, message) {
 	if (guildData.antiSpam == false) return false;

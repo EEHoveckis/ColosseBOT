@@ -1,8 +1,8 @@
-const countActiveWarns = require("../otherMethods/countActiveWarns.js");
-const infractionID = require("../otherMethods/randomID.js");
-const getReason = require("../otherMethods/getReason.js");
-const { incrementWarns, incrementMutes, incrementKicks, incrementBans, addWarn, addMute, addKick, addBan } = require("../otherMethods/addInfraction.js");
-const antiLangEmbeds = require("../../embeds/antiLangEmbeds.js");
+const countActiveWarns = require("../../otherMethods/countActiveWarns.js");
+const infractionID = require("../../otherMethods/randomID.js");
+const getReason = require("../../otherMethods/getReason.js");
+const { incrementWarns, incrementMutes, incrementKicks, incrementBans, addWarn, addMute, addKick, addBan } = require("../../otherMethods/addInfraction.js");
+const antiLangEmbeds = require("../../../embeds/antiLangEmbeds.js");
 
 module.exports = function(client, database, guildData, userData, message) {
 	infractionID(database).then(infractionID => {

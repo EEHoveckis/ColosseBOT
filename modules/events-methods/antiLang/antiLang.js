@@ -1,5 +1,5 @@
-const badLanguage = require("./badLanguage.js");
-const badName = require("./badName.js");
+const badLanguage = require("./langActions/badLanguage.js");
+const badName = require("./langActions/badName.js");
 const botStats = require("../dataMethods/stats/botStats.js");
 const badWords = require("../../files/wordbanks/badWords.js");
 
