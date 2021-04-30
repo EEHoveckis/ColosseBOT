@@ -1,5 +1,5 @@
 const emojiRegex = require("emoji-regex/RGI_Emoji.js");
-const botStats = require("../dataMethods/botStats.js");
+const botStats = require("../dataMethods/stats/botStats.js");
 const capsAbuse = require("./capsAbuse.js");
 const inviteLink = require("./inviteLink.js");
 const massMention = require("./massMention.js");

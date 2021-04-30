@@ -1,6 +1,6 @@
 const antiRaid = require("../../antiRaid/antiRaid.js");
-const getGuildData = require("../../dataMethods/getGuildData.js");
-const getUserData = require("../../dataMethods/getUserData.js");
+const getGuildData = require("../../dataMethods/guilds/getGuildData.js");
+const getUserData = require("../../dataMethods/users/getUserData.js");
 
 module.exports = {
 	name: "guildMemberAdd",

@@ -1,10 +1,10 @@
 const antiLang = require("../../antiLang/antiLang.js");
 const antiSpam = require("../../antiSpam/antiSpam.js");
-const botStats = require("../../dataMethods/botStats.js");
+const botStats = require("../../dataMethods/stats/botStats.js");
 const checkCommand = require("../../commandMethods/checkCommand.js");
-const getGuildData = require("../../dataMethods/getGuildData.js");
-const getUserData = require("../../dataMethods/getUserData.js");
-const userEconomy = require("../../dataMethods/userEconomy.js");
+const getGuildData = require("../../dataMethods/guilds/getGuildData.js");
+const getUserData = require("../../dataMethods/users/getUserData.js");
+const userEconomy = require("../../dataMethods/economy/userEconomy.js");
 
 module.exports = {
 	name: "message",

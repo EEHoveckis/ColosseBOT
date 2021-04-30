@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const cooldowns = require("../otherMethods/cooldowns.js");
 const errorEmbeds = require("../../embeds/errorEmbeds.js");
-const botStats = require("../dataMethods/botStats.js");
+const botStats = require("../dataMethods/stats/botStats.js");
 const { prefix, maintenance, ownerID } = require("../../files/config.js");
 
 module.exports = async function(client, message, database, data) {

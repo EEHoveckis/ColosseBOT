@@ -1,6 +1,6 @@
 const badLanguage = require("./badLanguage.js");
 const badName = require("./badName.js");
-const botStats = require("../dataMethods/botStats.js");
+const botStats = require("../dataMethods/stats/botStats.js");
 const badWords = require("../../files/wordbanks/badWords.js");
 
 module.exports = function(client, database, guildData, userData, message) {

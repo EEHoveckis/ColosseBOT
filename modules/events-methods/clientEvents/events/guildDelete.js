@@ -1,4 +1,4 @@
-const deleteGuildData = require("../../dataMethods/deleteGuildData.js");
+const deleteGuildData = require("../../dataMethods/guilds/deleteGuildData.js");
 
 module.exports = {
 	name: "guildDelete",

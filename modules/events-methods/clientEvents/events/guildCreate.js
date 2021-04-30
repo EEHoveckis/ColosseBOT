@@ -1,4 +1,4 @@
-const getGuildData = require("../../dataMethods/getGuildData.js");
+const getGuildData = require("../../dataMethods/guilds/getGuildData.js");
 
 module.exports = {
 	name: "guildCreate",

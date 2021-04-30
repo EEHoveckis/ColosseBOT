@@ -1,4 +1,4 @@
-const botStats = require("./botStats.js");
+const botStats = require("../stats/botStats.js");
 
 module.exports = async function(database, choice, otherArgs) {
 	try {
