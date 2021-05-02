@@ -1,20 +1,21 @@
+const { Long } = require("bson");
+const awardXP = require("./awardXP.js");
+const awardCoins = require("./awardCoins.js");
 const botStats = require("../stats/botStats.js");
 
-module.exports = async function(database, choice, otherArgs) {
+module.exports = function(database, choice, otherArgs) {
 	try {
-		const usersCollection = database.collection("users");
 		switch (choice) {
 			case "add":
-				const coinsAwarded = Math.floor(Math.random() * 20) * otherArgs.guildData.coinRate;
-				const xpAwarded = Math.floor(Math.random() * 20) * otherArgs.guildData.xpRate;
+				const xpValue = Math.floor(Math.random() * 20) * otherArgs.guildData.xpRate;;
+				const coinValue = Math.floor(Math.random() * 20) * otherArgs.guildData.coinRate;;
+				botStats(database, "economy", { xp: xpValue, coins: coinValue });
 
-				await usersCollection.updateOne({ user: otherArgs.userData.user }, { $inc: { coins: coinsAwarded, xp: xpAwarded } });
-
-				botStats(database, "economy", { xp: xpAwarded, coins: coinsAwarded });
+				awardXP(database, otherArgs.message.author.id, otherArgs.message.guild.id, { xp: xpValue });
+				awardCoins(database, otherArgs.message.author.id, otherArgs.message.guild.id, { coins: coinValue });
 				break;
 			case "get":
-				const userData = await usersCollection.findOne({ user: otherArgs.id });
-				return userData;
+				//will rework later
 				break;
 		}
 	} catch (e) {

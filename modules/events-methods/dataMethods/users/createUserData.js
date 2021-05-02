@@ -1,4 +1,4 @@
-const { Int32, Decimal128 } = require("bson");
+const { Int32, Long } = require("bson");
 
 module.exports = async function(database, userID) {
 	try {
@@ -8,8 +8,6 @@ module.exports = async function(database, userID) {
 			user: String(userID),
 			language: String("EN"),
 			prefix: String("//"),
-			coins: Decimal128.fromString("0"),
-			xp: Decimal128.fromString("0"),
 			warns: Int32(0),
 			mutes: Int32(0),
 			kicks: Int32(0),
@@ -20,15 +18,22 @@ module.exports = async function(database, userID) {
 			user: userID,
 			language: "EN",
 			prefix: "//",
-			coins: 0,
-			xp: 0,
 			warns: 0,
 			mutes: 0,
 			kicks: 0,
 			bans: 0
 		};
 
+		const xpCollection = database.collection("xpCollection");
+		const coinsCollection = database.collection("coinsCollection");
+		const econDoc = {
+			user: String(userID)
+		};
+
 		await userCollection.insertOne(newDoc);
+		await xpCollection.insertOne(econDoc);
+		await coinsCollection.insertOne(econDoc);
+
 		return userData;
 	} catch (e) {
 		console.error(e);

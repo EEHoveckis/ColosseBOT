@@ -23,7 +23,7 @@ module.exports = {
 					}
 					checkCommand(client, message, database, guildData).then(isCommand => {
 						if (isCommand == false) {
-							userEconomy(database, "add", { guildData: guildData, userData: userData });
+							userEconomy(database, "add", { guildData: guildData, userData: userData, message: message });
 						} else return;
 					});
 				});
