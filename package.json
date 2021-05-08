@@ -22,7 +22,7 @@
     "mongodb": "^3.6.5",
     "node-fetch": "^2.0.6",
     "random-puppy": "^1.1.0",
-    "unsplash-js": "^6.0.0",
+    "unsplash-js": "^7.0.11",
     "urban-dictionary": "^2.2.1"
   }
 }
