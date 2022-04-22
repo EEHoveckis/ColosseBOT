@@ -1,0 +1,24 @@
+.sidebar {
+  width: 25vw;
+  height: 100vh;
+  padding: 2vh 2vw;
+  border-right: 2px solid black;
+}
+.main_content {
+  padding: 0;
+  margin: 0;
+  width: 20vw;
+}
+
+.item > a {
+  color: white;
+}
+
+.item > a:hover {
+  background-color: #00d1b2;
+  color: white;
+}
+
+.dark_mode_title {
+  color: white;
+}

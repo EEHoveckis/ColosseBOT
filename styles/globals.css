@@ -1,3 +1,5 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
 html,
 body {
   padding: 0;
@@ -13,4 +15,17 @@ a {
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.table {
+  width: 100%;
+}
+
+.fixed_container {
+  width: 55vw;
+  margin-left: 35vw;
+  position: absolute;
+  top: 10vh;
 }
