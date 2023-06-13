@@ -4,6 +4,8 @@
 <h1 align="center">ColosseBOT</h1>
 <p align="center">The Ultimate Discord Bot</p>
 
+Not Working on Anymore. Feel free to use anything from this repository.
+
 [• Description](#-description)  
 [• Features](#-features)  
 [• Usage](#-usage)  
